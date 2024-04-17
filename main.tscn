@@ -281,5 +281,35 @@ size_flags_horizontal = 3
 text = "Value"
 scroll_fit_content_height = true
 
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_7vrsp")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="LblStatusHeader" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Status"
+
+[node name="LblStatusValue" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2"
+
+[node name="LblFpsValue" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MenuBar/HBoxContainer/BtnOpen" to="." method="_on_btn_open_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MenuBar/HBoxContainer/BtnGltf" to="." method="_on_btn_gltf_pressed"]

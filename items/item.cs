@@ -9,8 +9,10 @@ public partial class item : PanelContainer
     [NodePath]
     public Label LblName { get; set; }
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    public Action? Initializer { get; set; }
+    
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
         this.OnReady();
 	}
@@ -27,5 +29,7 @@ public partial class item : PanelContainer
     {
         
     }
+
+    public void initialize() => Initializer?.Invoke();
 
 }

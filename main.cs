@@ -1,8 +1,11 @@
 using Godot;
 using Godot.Sharp.Extras;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 public partial class main : PanelContainer
 {
@@ -15,12 +18,19 @@ public partial class main : PanelContainer
     public GridContainer GridProperties { get; set; }
     [NodePath]
     public PanelContainer Scene { get; set; }
+    [NodePath]
+    public Label LblStatusHeader { get; set; }
+    [NodePath]
+    public Label LblStatusValue { get; set; }
+    [NodePath]
+    public Label LblFpsValue { get; set; }
     #endregion
 
     #region Configuration
-    public const string fbx2gltf = "G:/Downloads/FBX2glTF-windows-x86_64.exe";
-    public const string GeneratedPath = "*__AS_GEN_GLTF";
-    public const string Mansion = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_2\\POLYGON_FantasyRivals_Source_Files\\Source_Files\\";
+    public string fbx2gltf = "G:/Downloads/FBX2glTF-windows-x86_64.exe";
+    public string GeneratedPath = "*__AS_GEN_GLTF";
+    public string Mansion = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Horror_Mansion_SourceFiles\\SourceFiles\\";
+    public string selectName = "FBX";
     #endregion
 
     public string SelectedPath { get; set; }
@@ -36,17 +46,23 @@ public partial class main : PanelContainer
         GridProperties.RemoveAndQueueFreeChildren();
         FlowItems.RemoveAndQueueFreeChildren();
         TreeItems.RemoveAndQueueFreeChildren();
+        LblStatusHeader.Text = "";
+        LblStatusValue.Text = "";
 
         ItemFolderScene = GD.Load<PackedScene>("res://items/item_folder.tscn");
         ItemTextureScene = GD.Load<PackedScene>("res://items/item_texture.tscn");
         Item3DScene = GD.Load<PackedScene>("res://items/item_3d.tscn");
     }
 
+    public override void _Process(double delta)
+    {
+        LblFpsValue.Text = (1.0 / delta).ToString();
+    }
+
     public Material ourMaterial;
     public void _on_btn_open_pressed()
     {
         GD.Print("ON OPEN");
-        string selectName = "Characters";
         var newPath = GeneratedPath.Replace("*", selectName);
         SelectedPath = Mansion + newPath;
         //var dialog = new FileDialog();
@@ -60,30 +76,78 @@ public partial class main : PanelContainer
 
         FlowItems.RemoveAndQueueFreeChildren();
 
-        var texfol = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_2\\POLYGON_FantasyRivals_Source_Files\\Source_Files\\Textures\\";
-        ourMaterial = loadMaterial(texfol + "FantasyRivals_Texture_01_A.png");
+        var matdir = new DirectoryInfo(Mansion + "Textures\\Alts\\");
+        var texs = matdir.GetFiles();
+        if (texs.Length > 0)
+            ourMaterial = loadMaterial(matdir.GetFiles()[0]);
 
         var files = Directory.GetFiles(SelectedPath, "", SearchOption.AllDirectories);
-        for (int i = 0; i < files.Length; i++)
+        LblStatusHeader.Text = "Loading:";
+        double threadSize = 100;
+        List<List<item>> shardedItems = new();
+        Task[] tasks = new Task[1]; //(int) Math.Ceiling(files.Length / threadSize)];
+        for (int t = 0; t < tasks.Length; t++)
         {
-            var file = files[i];
-            if (isMesh(file))
-                load3d(file);
-            if (isTexture(file))
-                loadTexture(file);
+            shardedItems.Add(new());
+            var task = Task.Run(() =>
+            {
+                for (int i = t; i < t * threadSize; i++)
+                {
+                    if (i >= files.Length)
+                        return;
+                    var file = files[i];
+                    var item = file[file.LastIndexOf(".")..].ToLower() switch
+                    {
+                        var a when isMesh(a) => load3d(file),
+                        var b when isTexture(b) => loadTexture(file),
+                        var c => throw new NotImplementedException()
+                    };
+                    shardedItems[t].Add(item);
+                    //LblStatusValue.Text = (i + 1) + " / " + files.Length;
+                }
+                //foreach (var n in nodes)
+                //{
+                //    //FlowItems.AddChild(n);
+                //    FlowItems.CallThreadSafe(nameof(FlowItems.AddChild), n);
+                //    //n.CallThreadSafe(nameof(item.initialize), n);
+                //}
+            });
+            tasks[t] = task;
+            task.Start();
+        }
+        Task.WaitAll(tasks);
+
+        int counter = 0;
+        foreach (var t in shardedItems)
+        {
+            foreach(var n in t)
+            {
+                counter++;
+                FlowItems.AddChild(n);
+                n.Initializer?.Invoke();
+                LblStatusValue.Text = counter + " / " + files.Length;
+                //FlowItems.CallThreadSafe(nameof(FlowItems.AddChild), n);
+                //n.CallThreadSafe(nameof(item.initialize), n);
+            }
         }
     }
 
-    private Material loadMaterial(string texture)
+    public void asdf()
     {
+
+    }
+
+    private Material loadMaterial(FileInfo textureFile) //string texture)
+    {
+        var path = textureFile.FullName;
         // TODO load materials
         var mat = new StandardMaterial3D();
-        var img = Image.LoadFromFile(texture);
+        var img = Image.LoadFromFile(path);
         var tex = ImageTexture.CreateFromImage(img);
         mat.AlbedoTexture = tex;
 
-        var emi = texture[..^5] + "Emissive.png";
-        if(File.Exists(emi))
+        var emi = path[..^5] + "Emissive.png";
+        if (File.Exists(emi))
         {
             var imgemi = Image.LoadFromFile(emi);
             var texemi = ImageTexture.CreateFromImage(imgemi);
@@ -92,11 +156,8 @@ public partial class main : PanelContainer
         return mat;
     }
 
-    private bool isMesh(string file)
-    {
-        return file.EndsWith(".glb", StringComparison.InvariantCultureIgnoreCase) || file.EndsWith(".gltf", StringComparison.InvariantCultureIgnoreCase);
-    }
-    private void load3d(string file)
+    private bool isMesh(string extension) => extension == ".glb" || extension == ".gltf";
+    private item_3d load3d(string file)
     {
         GltfDocument gltfDocument = new();
         GltfState state = new();
@@ -104,30 +165,34 @@ public partial class main : PanelContainer
         if (err != Error.Ok)
         {
             Console.WriteLine("error load3d: " + file);
-            return;
+            return null;
         }
         var node = (Node3D) gltfDocument.GenerateScene(state);
         var control = Item3DScene.Instantiate<item_3d>();
-        //var oldmesh = control.GetNode("%MeshInstance3D");
-        //oldmesh.ReplaceBy(node);
-        //oldmesh.GetParent().AddChild(node);
-        //oldmesh.QueueFree();
-        FlowItems.AddChild(control);
-        control.SetMesh(node);
-        control.SetName(file.Substring(file.LastIndexOf('\\')));
-        control.SetMaterial(ourMaterial);
+
+        control.Initializer = () =>
+        {
+            control.SetMesh(node);
+            control.SetName(file.Substring(file.LastIndexOf('\\')));
+            control.SetMaterial(ourMaterial);
+        };
+
+        //new Dispatcher().
+        //FlowItems.Call(nameof(FlowItems.AddChild), control);
+        //FlowItems.AddChild(control);
+
+        return control;
     }
 
-    private bool isTexture(string file)
-        => file.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase);
-    private void loadTexture(string file)
+    private bool isTexture(string extension) => extension == ".png";
+    private item loadTexture(string file)
     {
-
+        return null;
     }
 
     public void _on_btn_gltf_pressed()
     {
-        SelectedPath = Mansion + "Characters\\";
+        SelectedPath = Mansion + selectName;
         bool force = false;
 
         GD.Print("ON GLTF");
@@ -136,12 +201,16 @@ public partial class main : PanelContainer
         var newPath = GeneratedPath.Replace("*", selectedDir.Name);
 
         var fbx_files = Directory.GetFiles(SelectedPath, "*.fbx", SearchOption.AllDirectories);
+        LblStatusHeader.Text = "Converting fbx to gltf:";
         for (int i = 0; i < fbx_files.Length; i++)
         {
             var input = fbx_files[i];
             string output = input.Replace($"\\{selectedDir.Name}\\", $"\\{newPath}\\").Replace(".fbx", ".glb");
             if (File.Exists(output) && !force)
+            {
+                LblStatusValue.Text = (i + 1) + " / " + fbx_files.Length;
                 continue;
+            }
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.CreateNoWindow = true;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
@@ -154,6 +223,7 @@ public partial class main : PanelContainer
             var process = Process.Start(psi);
             //process.WaitForExit();
 
+            LblStatusValue.Text = (i + 1) + " / " + fbx_files.Length;
             //string stdout = process.StandardOutput.ReadToEnd(); 
             //Process.Start(fbx2gltf, $"-b -i {input} -o {output}");
         }

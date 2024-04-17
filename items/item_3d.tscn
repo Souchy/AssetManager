@@ -15,6 +15,8 @@ layout_mode = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" index="0"]
+unique_name_in_owner = true
+disable_3d = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false

@@ -11,15 +11,18 @@ public partial class item_3d : item
 
     [NodePath]
     public Node3D Model { get; set; }
+    [NodePath]
+    public SubViewport SubViewport { get; set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
         this.OnReady();
-	}
+        //Initializer?.Invoke();
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
         if(hovering)
         {
@@ -35,7 +38,7 @@ public partial class item_3d : item
     {
         Model.ReplaceBy(node);
         Model = node;
-        var meshes = Model.GetChildrenOfType<MeshInstance3D>();
+        var meshes = node.GetChildrenOfType<MeshInstance3D>();
         foreach (var mesh in meshes)
         {
             mesh.LodBias = 128;
@@ -52,12 +55,19 @@ public partial class item_3d : item
         }
     }
 
-    public void _on_mouse_entered() => hovering = true;
+    public void _on_mouse_entered()
+    {
+        hovering = true;
+        SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Always;
+        SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+    }
 
     public void _on_mouse_exited()
     {
         hovering = false;
         Model.Rotation = new Vector3();
+        SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Once;
+        SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
     }
 
 
