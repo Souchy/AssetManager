@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd283slamk6ae"]
+
+[ext_resource type="Texture2D" uid="uid://driesagh2j5dj" path="res://icon.svg" id="1_a823m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qhbh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xchjs"]
+bg_color = Color(0, 0, 0, 0.431373)
+
+[sub_resource type="LabelSettings" id="LabelSettings_66rmw"]
+font_size = 12
+
+[node name="Item" type="PanelContainer"]
+custom_minimum_size = Vector2(84, 60)
+offset_right = 84.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8qhbh")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("1_a823m")
+expand_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_xchjs")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="LblName" type="Label" parent="PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_66rmw")
