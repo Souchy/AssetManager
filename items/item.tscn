@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bd283slamk6ae"]
+[gd_scene load_steps=6 format=3 uid="uid://bd283slamk6ae"]
 
 [ext_resource type="Texture2D" uid="uid://driesagh2j5dj" path="res://icon.svg" id="1_a823m"]
+[ext_resource type="Script" path="res://items/item.cs" id="1_i63lg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qhbh"]
 
@@ -11,10 +12,11 @@ bg_color = Color(0, 0, 0, 0.431373)
 font_size = 12
 
 [node name="Item" type="PanelContainer"]
-custom_minimum_size = Vector2(84, 60)
-offset_right = 84.0
-offset_bottom = 54.0
+custom_minimum_size = Vector2(100, 80)
+offset_right = 100.0
+offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8qhbh")
+script = ExtResource("1_i63lg")
 
 [node name="Icon" type="TextureRect" parent="."]
 unique_name_in_owner = true

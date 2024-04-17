@@ -1,0 +1,40 @@
+using Godot;
+using Godot.Sharp.Extras;
+using System;
+
+public partial class item_3d : item
+{
+    private bool hovering {  get; set; }
+
+    [NodePath]
+    public Node3D Model { get; set; }
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+        this.OnReady();
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+        if(hovering)
+        {
+            //Model.Rotate(Vector3.Up, (float) (0.5 * delta));
+            //Model.RotateY((float)(0.5 * delta));
+            //Model.GlobalRotate(Vector3.Up, (float)(0.5 * delta));
+            Model.RotationDegrees = new Vector3(0, 30, 0);
+            GD.Print("rotate");
+        }
+	}
+
+    public void SetMesh(Node3D node)
+    {
+        Model.ReplaceBy(node);
+    }
+
+    public void _on_mouse_entered() => hovering = true;
+
+    public void _on_mouse_exited() => hovering = false;
+
+}

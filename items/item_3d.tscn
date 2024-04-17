@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://jym0ih4kflri"]
+[gd_scene load_steps=4 format=3 uid="uid://jym0ih4kflri"]
 
 [ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://items/item.tscn" id="1_6phar"]
+[ext_resource type="Script" path="res://items/item_3d.cs" id="2_6qawm"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_g5evt"]
 
 [node name="Item3d" instance=ExtResource("1_6phar")]
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+script = ExtResource("2_6qawm")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." index="0"]
 layout_mode = 2
@@ -12,23 +16,24 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" index="0"]
 transparent_bg = true
-handle_input_locally = false
-size = Vector2i(84, 60)
-render_target_clear_mode = 2
-render_target_update_mode = 1
+size = Vector2i(100, 80)
+render_target_update_mode = 4
 
 [node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport" index="0"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Node3D" index="0"]
+[node name="Model" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Node3D" index="0"]
 unique_name_in_owner = true
-transform = Transform3D(0.956717, -0.273469, 0.0995345, 0.291019, 0.89902, -0.327217, 0, 0.34202, 0.939693, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_g5evt")
 skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Node3D" index="1"]
-unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1.84333)
+transform = Transform3D(-1, 0, -8.74228e-08, -2.05108e-08, 0.972088, 0.234616, 8.49826e-08, 0.234616, -0.972088, 0, 1.15433, -1.84333)
+current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Node3D" index="2"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

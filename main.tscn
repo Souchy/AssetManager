@@ -170,16 +170,24 @@ theme_override_constants/v_separation = 5
 layout_mode = 2
 
 [node name="Item3d" parent="MarginContainer/VBoxContainer/HSplitContainer/HSplitContainer/VSplitContainer/GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("4_qkrpc")]
+custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
+script = null
 
 [node name="ItemFolder" parent="MarginContainer/VBoxContainer/HSplitContainer/HSplitContainer/VSplitContainer/GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("6_onnk7")]
+custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
+script = null
 
 [node name="ItemSound" parent="MarginContainer/VBoxContainer/HSplitContainer/HSplitContainer/VSplitContainer/GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("7_331dn")]
+custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
+script = null
 
 [node name="ItemTexture" parent="MarginContainer/VBoxContainer/HSplitContainer/HSplitContainer/VSplitContainer/GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("7_x6pce")]
+custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
+script = null
 
 [node name="Properties" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
