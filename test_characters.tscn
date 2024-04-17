@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://0u0hoqyr5kx2"]
+
+[ext_resource type="PackedScene" uid="uid://b5en7ilnedtiw" path="res://Characters.fbx.glb" id="1_inmc8"]
+[ext_resource type="Texture2D" uid="uid://bcpucpe0stcmd" path="res://PolygonHorror_Texture_01_A.png" id="2_hyso8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6c54c"]
+albedo_texture = ExtResource("2_hyso8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_um6p2"]
+albedo_texture = ExtResource("2_hyso8")
+
+[node name="Root Scene" instance=ExtResource("1_inmc8")]
+
+[node name="SM_Chr_Jock_01" parent="RootNode/Skeleton3D" index="0"]
+visible = false
+material_override = SubResource("StandardMaterial3D_6c54c")
+lod_bias = 128.0
+
+[node name="SM_Chr_Chick_01" parent="RootNode/Skeleton3D" index="1"]
+visible = false
+
+[node name="SM_Chr_Butcher_01" parent="RootNode/Skeleton3D" index="2"]
+visible = false
+
+[node name="SM_Chr_Count_01" parent="RootNode/Skeleton3D" index="3"]
+visible = false
+
+[node name="SM_Chr_Demon_01" parent="RootNode/Skeleton3D" index="4"]
+visible = false
+
+[node name="SM_Chr_Gimp_01" parent="RootNode/Skeleton3D" index="5"]
+visible = false
+
+[node name="SM_Chr_Werewolf_01" parent="RootNode/Skeleton3D" index="6"]
+visible = false
+
+[node name="SM_Chr_Witch_01" parent="RootNode/Skeleton3D" index="7"]
+visible = false
+
+[node name="SM_Chr_Ghoul_01" parent="RootNode/Skeleton3D" index="8"]
+visible = false
+
+[node name="SM_Chr_Yokai_01" parent="RootNode/Skeleton3D" index="9"]
+material_override = SubResource("StandardMaterial3D_um6p2")
+lod_bias = 128.0

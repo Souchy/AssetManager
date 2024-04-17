@@ -1,6 +1,9 @@
+using AssetManager;
 using Godot;
+using Godot.Collections;
 using Godot.Sharp.Extras;
 using System;
+using System.Linq;
 
 public partial class item_3d : item
 {
@@ -21,20 +24,41 @@ public partial class item_3d : item
         if(hovering)
         {
             //Model.Rotate(Vector3.Up, (float) (0.5 * delta));
-            //Model.RotateY((float)(0.5 * delta));
+            Model.RotateY((float)(3 * delta));
             //Model.GlobalRotate(Vector3.Up, (float)(0.5 * delta));
-            Model.RotationDegrees = new Vector3(0, 30, 0);
-            GD.Print("rotate");
+            //Model.RotationDegrees = new Vector3(0, 30, 0);
+            //GD.Print("rotate");
         }
 	}
 
     public void SetMesh(Node3D node)
     {
         Model.ReplaceBy(node);
+        Model = node;
+        var meshes = Model.GetChildrenOfType<MeshInstance3D>();
+        foreach (var mesh in meshes)
+        {
+            mesh.LodBias = 128;
+        }
+    }
+
+    public void SetMaterial(Material material)
+    {
+        var meshes = Model.GetChildrenOfType<MeshInstance3D>();
+        
+        foreach(var mesh in meshes)
+        {
+            mesh.MaterialOverride = material;
+        }
     }
 
     public void _on_mouse_entered() => hovering = true;
 
-    public void _on_mouse_exited() => hovering = false;
+    public void _on_mouse_exited()
+    {
+        hovering = false;
+        Model.Rotation = new Vector3();
+    }
+
 
 }

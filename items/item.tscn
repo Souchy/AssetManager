@@ -12,7 +12,7 @@ bg_color = Color(0, 0, 0, 0.431373)
 font_size = 12
 
 [node name="Item" type="PanelContainer"]
-custom_minimum_size = Vector2(100, 80)
+custom_minimum_size = Vector2(140, 120)
 offset_right = 100.0
 offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8qhbh")

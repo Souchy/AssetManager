@@ -19,8 +19,8 @@ public partial class main : PanelContainer
 
     #region Configuration
     public const string fbx2gltf = "G:/Downloads/FBX2glTF-windows-x86_64.exe";
-    public const string GeneratedPath = "GLTF_GENERATED_SM";
-    public const string Mansion = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Horror_Mansion_SourceFiles\\SourceFiles\\";
+    public const string GeneratedPath = "*__AS_GEN_GLTF";
+    public const string Mansion = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_2\\POLYGON_FantasyRivals_Source_Files\\Source_Files\\";
     #endregion
 
     public string SelectedPath { get; set; }
@@ -37,27 +37,18 @@ public partial class main : PanelContainer
         FlowItems.RemoveAndQueueFreeChildren();
         TreeItems.RemoveAndQueueFreeChildren();
 
-        SelectedPath = Mansion + "FBX\\";
         ItemFolderScene = GD.Load<PackedScene>("res://items/item_folder.tscn");
         ItemTextureScene = GD.Load<PackedScene>("res://items/item_texture.tscn");
         Item3DScene = GD.Load<PackedScene>("res://items/item_3d.tscn");
     }
 
+    public Material ourMaterial;
     public void _on_btn_open_pressed()
     {
         GD.Print("ON OPEN");
-        SelectedPath = Mansion + GeneratedPath;
-        FlowItems.RemoveAndQueueFreeChildren();
-
-        var files = Directory.GetFiles(SelectedPath, "", SearchOption.AllDirectories);
-        for (int i = 0; i < 5; i++)
-        {
-            var file = files[i];
-            if(isMesh(file))
-                load3d(file);
-            if (isTexture(file))
-                loadTexture(file);
-        }
+        string selectName = "Characters";
+        var newPath = GeneratedPath.Replace("*", selectName);
+        SelectedPath = Mansion + newPath;
         //var dialog = new FileDialog();
         //dialog.CurrentDir = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE #1";
         ////dialog.CurrentPath = "";
@@ -67,7 +58,38 @@ public partial class main : PanelContainer
         //Viewport viewport = new Viewport();
         //File.
 
+        FlowItems.RemoveAndQueueFreeChildren();
 
+        var texfol = "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_2\\POLYGON_FantasyRivals_Source_Files\\Source_Files\\Textures\\";
+        ourMaterial = loadMaterial(texfol + "FantasyRivals_Texture_01_A.png");
+
+        var files = Directory.GetFiles(SelectedPath, "", SearchOption.AllDirectories);
+        for (int i = 0; i < files.Length; i++)
+        {
+            var file = files[i];
+            if (isMesh(file))
+                load3d(file);
+            if (isTexture(file))
+                loadTexture(file);
+        }
+    }
+
+    private Material loadMaterial(string texture)
+    {
+        // TODO load materials
+        var mat = new StandardMaterial3D();
+        var img = Image.LoadFromFile(texture);
+        var tex = ImageTexture.CreateFromImage(img);
+        mat.AlbedoTexture = tex;
+
+        var emi = texture[..^5] + "Emissive.png";
+        if(File.Exists(emi))
+        {
+            var imgemi = Image.LoadFromFile(emi);
+            var texemi = ImageTexture.CreateFromImage(imgemi);
+            mat.EmissionTexture = texemi;
+        }
+        return mat;
     }
 
     private bool isMesh(string file)
@@ -79,7 +101,7 @@ public partial class main : PanelContainer
         GltfDocument gltfDocument = new();
         GltfState state = new();
         var err = gltfDocument.AppendFromFile(file, state);
-        if(err != Error.Ok)
+        if (err != Error.Ok)
         {
             Console.WriteLine("error load3d: " + file);
             return;
@@ -92,6 +114,8 @@ public partial class main : PanelContainer
         //oldmesh.QueueFree();
         FlowItems.AddChild(control);
         control.SetMesh(node);
+        control.SetName(file.Substring(file.LastIndexOf('\\')));
+        control.SetMaterial(ourMaterial);
     }
 
     private bool isTexture(string file)
@@ -103,23 +127,19 @@ public partial class main : PanelContainer
 
     public void _on_btn_gltf_pressed()
     {
-        GD.Print("ON GLTF");
+        SelectedPath = Mansion + "Characters\\";
         bool force = false;
+
+        GD.Print("ON GLTF");
         var selectedDir = new DirectoryInfo(SelectedPath);
         //var gltfDir = Directory.CreateDirectory(selectedDir.Parent.FullName + "/" + GeneratedPath);
-
-        var directories = Directory.GetDirectories(SelectedPath);
-        foreach (var dir in directories)
-        {
-            string output = dir.Replace($"\\{selectedDir.Name}\\", $"\\{GeneratedPath}\\");
-            Directory.CreateDirectory(output);
-        }
+        var newPath = GeneratedPath.Replace("*", selectedDir.Name);
 
         var fbx_files = Directory.GetFiles(SelectedPath, "*.fbx", SearchOption.AllDirectories);
         for (int i = 0; i < fbx_files.Length; i++)
         {
             var input = fbx_files[i];
-            string output = input.Replace($"\\{selectedDir.Name}\\", $"\\{GeneratedPath}\\") + ".glb";
+            string output = input.Replace($"\\{selectedDir.Name}\\", $"\\{newPath}\\").Replace(".fbx", ".glb");
             if (File.Exists(output) && !force)
                 continue;
             ProcessStartInfo psi = new ProcessStartInfo();
@@ -133,7 +153,7 @@ public partial class main : PanelContainer
             psi.ArgumentList.Add(output);
             var process = Process.Start(psi);
             //process.WaitForExit();
-            
+
             //string stdout = process.StandardOutput.ReadToEnd(); 
             //Process.Start(fbx2gltf, $"-b -i {input} -o {output}");
         }
