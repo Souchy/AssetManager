@@ -83,44 +83,46 @@ public partial class main : PanelContainer
 
         var files = Directory.GetFiles(SelectedPath, "", SearchOption.AllDirectories);
         LblStatusHeader.Text = "Loading:";
-        double threadSize = 100;
+        double threadSize = 3;
         List<List<item>> shardedItems = new();
         Task[] tasks = new Task[1]; //(int) Math.Ceiling(files.Length / threadSize)];
         for (int t = 0; t < tasks.Length; t++)
         {
+            var tt = t;
             shardedItems.Add(new());
-            var task = Task.Run(() =>
-            {
-                for (int i = t; i < t * threadSize; i++)
+            //var task = new Task(() =>
+            //{
+                for (int i = tt; i < (tt + 1) * threadSize; i++)
                 {
                     if (i >= files.Length)
                         return;
                     var file = files[i];
-                    var item = file[file.LastIndexOf(".")..].ToLower() switch
-                    {
-                        var a when isMesh(a) => load3d(file),
-                        var b when isTexture(b) => loadTexture(file),
-                        var c => throw new NotImplementedException()
-                    };
-                    shardedItems[t].Add(item);
+                    var ext = file[file.LastIndexOf(".")..].ToLower();
+                    item item = null;
+                    if (isMesh(ext))
+                        item = load3d(file);
+                    if (isTexture(ext))
+                        item = loadTexture(file);
+                    //var item = ext switch
+                    //{
+                    //    var a when isMesh(a) => load3d(file),
+                    //    var b when isTexture(b) => loadTexture(file),
+                    //    var c => throw new NotImplementedException()
+                    //};
+                    if (item != null)
+                        shardedItems[t].Add(item);
                     //LblStatusValue.Text = (i + 1) + " / " + files.Length;
                 }
-                //foreach (var n in nodes)
-                //{
-                //    //FlowItems.AddChild(n);
-                //    FlowItems.CallThreadSafe(nameof(FlowItems.AddChild), n);
-                //    //n.CallThreadSafe(nameof(item.initialize), n);
-                //}
-            });
-            tasks[t] = task;
-            task.Start();
+            //});
+            //tasks[tt] = task;
+            //task.Start();
         }
-        Task.WaitAll(tasks);
+        //Task.WaitAll(tasks);
 
         int counter = 0;
         foreach (var t in shardedItems)
         {
-            foreach(var n in t)
+            foreach (var n in t)
             {
                 counter++;
                 FlowItems.AddChild(n);
