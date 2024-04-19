@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using Godot.Sharp.Extras;
 using System;
 using System.Collections.Generic;
@@ -83,60 +84,52 @@ public partial class main : PanelContainer
 
         var files = Directory.GetFiles(SelectedPath, "", SearchOption.AllDirectories);
         LblStatusHeader.Text = "Loading:";
-        double threadSize = 3;
-        List<List<item>> shardedItems = new();
-        Task[] tasks = new Task[1]; //(int) Math.Ceiling(files.Length / threadSize)];
-        for (int t = 0; t < tasks.Length; t++)
+
+        int threadSize = 100;
+        int threadCount = (files.Length / threadSize) + 1;
+        GodotThread[] threads = new GodotThread[threadCount]; //(files.Length / threadSize)];
+        for (int t = 0; t < threads.Length; t++)
         {
-            var tt = t;
-            shardedItems.Add(new());
-            //var task = new Task(() =>
-            //{
-                for (int i = tt; i < (tt + 1) * threadSize; i++)
-                {
-                    if (i >= files.Length)
-                        return;
-                    var file = files[i];
-                    var ext = file[file.LastIndexOf(".")..].ToLower();
-                    item item = null;
-                    if (isMesh(ext))
-                        item = load3d(file);
-                    if (isTexture(ext))
-                        item = loadTexture(file);
-                    //var item = ext switch
-                    //{
-                    //    var a when isMesh(a) => load3d(file),
-                    //    var b when isTexture(b) => loadTexture(file),
-                    //    var c => throw new NotImplementedException()
-                    //};
-                    if (item != null)
-                        shardedItems[t].Add(item);
-                    //LblStatusValue.Text = (i + 1) + " / " + files.Length;
-                }
-            //});
-            //tasks[tt] = task;
-            //task.Start();
+            int index0 = t * threadSize;
+            int index1 = Math.Min(index0 + threadSize, files.Length);
+            string[] slice = files[index0..index1];
+
+            var callable = Callable.From(() => loadThings(slice));
+            threads[t] = new();
+            threads[t].Start(callable);
         }
-        //Task.WaitAll(tasks);
 
         int counter = 0;
-        foreach (var t in shardedItems)
+        foreach (var thread in threads)
         {
-            foreach (var n in t)
+            var results = (Array<Node>) thread.WaitToFinish();
+            foreach (var n in results.Where(n => n != null))
             {
                 counter++;
-                FlowItems.AddChild(n);
-                n.Initializer?.Invoke();
+                makeItem(n);
                 LblStatusValue.Text = counter + " / " + files.Length;
-                //FlowItems.CallThreadSafe(nameof(FlowItems.AddChild), n);
-                //n.CallThreadSafe(nameof(item.initialize), n);
             }
         }
     }
 
-    public void asdf()
+    private Array<Node> loadThings(string[] files)
     {
-
+        Array<Node> items = new();
+        for (int i = 0; i < files.Length; i++)
+        {
+            if (i >= files.Length)
+                break;
+            var file = files[i];
+            var ext = file[file.LastIndexOf(".")..].ToLower();
+            Node item = null;
+            if (isMesh(ext))
+                item = load3d(file);
+            if (isTexture(ext))
+                item = loadTexture(file);
+            if (item != null)
+                items.Add(item);
+        }
+        return items;
     }
 
     private Material loadMaterial(FileInfo textureFile) //string texture)
@@ -159,7 +152,7 @@ public partial class main : PanelContainer
     }
 
     private bool isMesh(string extension) => extension == ".glb" || extension == ".gltf";
-    private item_3d load3d(string file)
+    private Node load3d(string file)
     {
         GltfDocument gltfDocument = new();
         GltfState state = new();
@@ -169,25 +162,26 @@ public partial class main : PanelContainer
             Console.WriteLine("error load3d: " + file);
             return null;
         }
-        var node = (Node3D) gltfDocument.GenerateScene(state);
-        var control = Item3DScene.Instantiate<item_3d>();
+        var node = gltfDocument.GenerateScene(state);
+        string name = file.Substring(file.LastIndexOf('\\'));
+        node.Name = name;
+        return node;
+    }
 
-        control.Initializer = () =>
+    public void makeItem(Node node)
+    {
+        if (node is Node3D)
         {
-            control.SetMesh(node);
-            control.SetName(file.Substring(file.LastIndexOf('\\')));
+            var control = Item3DScene.Instantiate<item_3d>();
+            FlowItems.AddChild(control);
+            control.SetLabelName(node.Name);
+            control.SetMesh(node as Node3D);
             control.SetMaterial(ourMaterial);
-        };
-
-        //new Dispatcher().
-        //FlowItems.Call(nameof(FlowItems.AddChild), control);
-        //FlowItems.AddChild(control);
-
-        return control;
+        }
     }
 
     private bool isTexture(string extension) => extension == ".png";
-    private item loadTexture(string file)
+    private Node loadTexture(string file)
     {
         return null;
     }

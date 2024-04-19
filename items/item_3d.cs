@@ -59,7 +59,7 @@ public partial class item_3d : item
     {
         hovering = true;
         SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Always;
-        SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+        SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.WhenVisible;
     }
 
     public void _on_mouse_exited()

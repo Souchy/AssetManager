@@ -17,7 +17,7 @@ public partial class item : PanelContainer
         this.OnReady();
 	}
 
-    public void SetName(string name)
+    public void SetLabelName(string name)
     {
         this.LblName.Text = name.Replace("\\", "");
     }
