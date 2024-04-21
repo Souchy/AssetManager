@@ -14,11 +14,14 @@ namespace AssetManager;
 
 public class Explorer
 {
+    public static Explorer Instance { get; private set; }
 
     public ConfigGeneral config { get; }
 
     public Explorer(ConfigGeneral config)
     {
+        if (Instance != null) throw new Exception("Instantiated Explorer twice");
+        Instance = this;
         this.config = config;
         config.CurrentDirectory = "G://Assets/pack/HumbleBundle/Synty"; // Mansion;
     }
@@ -52,10 +55,10 @@ public class Explorer
         {
             var texs = matdir.GetFiles();
             if (texs.Length > 0)
-                Pearls.defaultMaterial = MaterialLoader.loadMaterial(matdir.GetFiles()[0]);
+                Pearls.Instance.DefaultMaterial = MaterialLoader.loadMaterial(matdir.GetFiles()[0]);
         }
-
-        if (Pearls.ItemsPerDirectory.TryGetValue(config.CurrentDirectory, out Array<item> oldItems))
+        var oldItems = Pearls.Instance.CurrentItems;
+        if (oldItems != null)
         {
             UiFlowView.Instance.refill(oldItems);
             EventBus.centralBus.publish(Loaders.EventLoadCount, oldItems.Count, oldItems.Count);
@@ -63,15 +66,13 @@ public class Explorer
         }
 
         UiFlowView.Instance.clear();
-        //var old = items; //Pearls.ItemsPerDirectory.ge[CurrentDirectory];
-        Pearls.ItemsPerDirectory[config.CurrentDirectory] = new();
-
+        Pearls.Instance.CurrentItems = new();
 
         // load dirs
         var dirs = Directory.GetDirectories(config.SelectedPath, "");
         var dirItems = Loaders.loadDirs(dirs);
         UiFlowView.Instance.fill(dirItems);
-        Pearls.ItemsPerDirectory[config.CurrentDirectory].AddRange(dirItems);
+        Pearls.Instance.CurrentItems.AddRange(dirItems);
 
         // load files
         var files = Directory.GetFiles(config.SelectedPath, "");

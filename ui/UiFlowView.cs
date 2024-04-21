@@ -57,7 +57,7 @@ public partial class UiFlowView : VBoxContainer
         //foreach (var n in nodes)
         //    makeItem(n);
         var items = nodes.Select(n => makeItem(n));
-        Pearls.ItemsPerDirectory[config.CurrentDirectory].AddRange(items);
+        Pearls.Instance.CurrentItems.AddRange(items);
     }
 
     public void refill(Array<item> items)
@@ -74,7 +74,7 @@ public partial class UiFlowView : VBoxContainer
             FlowItems.AddChild(control);
             control.SetLabelName(node.Name);
             control.SetMesh(obj as Node3D);
-            control.SetMaterial(Pearls.defaultMaterial);
+            control.SetMaterial(Pearls.Instance.DefaultMaterial);
             return control;
         }
         else
@@ -90,6 +90,11 @@ public partial class UiFlowView : VBoxContainer
     public void _on_btn_hide_flow_pressed()
     {
         this.Visible = false;
+    }
+    public void _on_btn_reload_pressed()
+    {
+        Pearls.Instance.CurrentItems = null;
+        Explorer.Instance.select(Explorer.Instance.config.CurrentDirectory);
     }
 
 }

@@ -7,26 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Util.communication.events;
+using Util.json;
 
 namespace AssetManager;
 
 internal class Pearls
 {
+    public static Pearls Instance { get; private set; }
 
-    public static Material defaultMaterial {  get; set; }
+    public Material DefaultMaterial { get; set; }
 
-    public static Godot.Collections.Dictionary<string, Array<item>> ItemsPerDirectory = new();
+    public Godot.Collections.Dictionary<string, Array<item>> ItemsPerDirectory = new();
 
-    private static readonly Pearls singleton = new();
-    private Pearls()
+
+    private ConfigGeneral config { get; }
+
+    public Pearls(ConfigGeneral config)
     {
+        if(Instance != null) throw new Exception("Instantiated Pearls twice");
+        Instance = this;
         EventBus.centralBus.subscribe(this);
+        this.config = config;
     }
 
-    //[Subscribe(Loaders.EventLoad)] / Problem: when we publish this event, we do so from Loaders which has Array<Node> instead of items. Need to makeItem in FlowView first
-    //private void onLoad(Array<item> items)
-    //{
-    //    ItemsPerDirectory[Explorer.CurrentDirectory].AddRange(items);
-    //}
+    public Array<item> CurrentItems
+    {
+        get => ItemsPerDirectory.ContainsKey(config.CurrentDirectory) ? ItemsPerDirectory[config.CurrentDirectory] : null;
+        set => ItemsPerDirectory[config.CurrentDirectory] = value;
+    }
 
 }

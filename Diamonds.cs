@@ -8,4 +8,6 @@ namespace AssetManager;
 
 internal class Diamonds
 {
+
+
 }

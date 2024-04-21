@@ -26,6 +26,7 @@ public partial class DependencyInjectionSystem : Node, IDependencyInjectionSyste
         var conf = Config.load<ConfigGeneral>();
         container.Register(() => conf, Lifestyle.Singleton);
         container.Register<Explorer>(Lifestyle.Singleton);
+        container.Register<Pearls>(Lifestyle.Singleton);
 
         var ex = container.GetInstance<Explorer>();
 

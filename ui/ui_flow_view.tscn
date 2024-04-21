@@ -3,11 +3,11 @@
 [ext_resource type="StyleBox" uid="uid://by141ycketuki" path="res://style/background_dark.tres" id="1_0rh8t"]
 [ext_resource type="Script" path="res://ui/UiFlowView.cs" id="1_6quc3"]
 [ext_resource type="Theme" uid="uid://gnsm0odr5gys" path="res://style/theme.tres" id="1_g7d5n"]
-[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://ui/items/item.tscn" id="2_gu7gj"]
-[ext_resource type="PackedScene" uid="uid://jym0ih4kflri" path="res://ui/items/item_3d.tscn" id="3_fiea4"]
-[ext_resource type="PackedScene" uid="uid://b742bwem0u4b8" path="res://ui/items/item_folder.tscn" id="4_bc4m3"]
-[ext_resource type="PackedScene" uid="uid://byeu5m15qh7ga" path="res://ui/items/item_sound.tscn" id="5_ueyqn"]
-[ext_resource type="PackedScene" uid="uid://c7hskd88fa6qo" path="res://ui/items/item_texture.tscn" id="6_r16tt"]
+[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://ui/items/item.tscn" id="4_2rxsi"]
+[ext_resource type="PackedScene" uid="uid://jym0ih4kflri" path="res://ui/items/item_3d.tscn" id="5_tumfo"]
+[ext_resource type="PackedScene" uid="uid://b742bwem0u4b8" path="res://ui/items/item_folder.tscn" id="6_un1a3"]
+[ext_resource type="PackedScene" uid="uid://byeu5m15qh7ga" path="res://ui/items/item_sound.tscn" id="7_04iqu"]
+[ext_resource type="PackedScene" uid="uid://c7hskd88fa6qo" path="res://ui/items/item_texture.tscn" id="8_v6nhy"]
 
 [node name="UiFlowView" type="VBoxContainer"]
 offset_right = 1152.0
@@ -22,6 +22,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Flow"
+
+[node name="BtnReload" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload"
 
 [node name="BtnHideFlow" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
@@ -54,25 +59,27 @@ size_flags_horizontal = 3
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 
-[node name="Item" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("2_gu7gj")]
+[node name="Item" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("4_2rxsi")]
 layout_mode = 2
 
-[node name="Item3d" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("3_fiea4")]
+[node name="Item3d" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("5_tumfo")]
 custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
 script = null
 
-[node name="ItemFolder" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("4_bc4m3")]
+[node name="ItemFolder" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("6_un1a3")]
 custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
 script = null
 
-[node name="ItemSound" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("5_ueyqn")]
+[node name="ItemSound" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("7_04iqu")]
 custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
 script = null
 
-[node name="ItemTexture" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("6_r16tt")]
+[node name="ItemTexture" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("8_v6nhy")]
 custom_minimum_size = Vector2(84, 60)
 layout_mode = 2
 script = null
+
+[connection signal="pressed" from="HBoxContainer/BtnReload" to="." method="_on_btn_reload_pressed"]
