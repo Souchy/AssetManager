@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://jym0ih4kflri"]
 
-[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://ui/items/item.tscn" id="1_6phar"]
-[ext_resource type="Script" path="res://ui/items/item_3d.cs" id="2_6qawm"]
+[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://ui/items/item.tscn" id="1_ducdt"]
+[ext_resource type="Script" path="res://ui/items/item_3d.cs" id="2_h0acl"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_g5evt"]
 
-[node name="Item3d" instance=ExtResource("1_6phar")]
+[node name="Item3d" instance=ExtResource("1_ducdt")]
 mouse_filter = 1
 mouse_default_cursor_shape = 2
-script = ExtResource("2_6qawm")
+script = ExtResource("2_h0acl")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." index="0"]
 layout_mode = 2
@@ -33,7 +33,7 @@ skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Node3D" index="1"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 1.9, 3)
+transform = Transform3D(0.866025, 0.25, -0.433013, 0, 0.866025, 0.5, 0.5, -0.433013, 0.75, -2.18299, 2.65, 3.76)
 projection = 1
 size = 2.5
 

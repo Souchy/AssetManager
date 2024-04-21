@@ -23,7 +23,7 @@ internal static class Loaders
     public static async void loadThreaded(string[] files)
     {
         // EVENT: clear flow + Pearls
-        int threadSize = 10;
+        int threadSize = 3;
         int threadCount = 3; //(files.Length / threadSize) + 1;
         GodotThread[] threads = new GodotThread[threadCount];
         for (int t = 0; t < threads.Length; t++)

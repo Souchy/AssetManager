@@ -49,6 +49,35 @@ public partial class item_3d : item
         _on_mouse_exited();
     }
 
+    private static readonly float sin = (float) Math.Sin(30f * Math.PI / 180f);
+    private static readonly float cos = (float) Math.Cos(30f * Math.PI / 180f);
+    private static readonly float camDist = 5;
+    //private static readonly Vector3 camPos = new Vector3()
+    private void initCam(Aabb aabb)
+    {
+        var adj = camDist * cos;
+        var opp = camDist * sin;
+
+        var y = opp;
+        var x = -sin * adj;
+        var z = cos * adj;
+
+        var middleY = (aabb.End.Y + aabb.Position.Y) / 2f;
+        y += middleY;
+        var middleX = (aabb.End.X + aabb.Position.X) / 2f;
+        x += middleX;
+        var middleZ = (aabb.End.Z + aabb.Position.Z) / 2f;
+        z += middleZ;
+
+        Camera3D.Position = new Vector3(x, y, z);
+        Camera3D.Size = Math.Max(aabb.Size.X, aabb.Size.Y) * 1.25f;
+
+        if(middleY > 0.5f)
+        {
+
+        }
+    }
+
     public void SetMesh(Node3D node)
     {
         Model.ReplaceBy(node);
@@ -64,8 +93,12 @@ public partial class item_3d : item
         }
         if(meshes.Count > 0)
         {
-        var aabb = meshes[0].GetAabb();
-        Camera3D.Size = Math.Max(aabb.Size.X, aabb.Size.Y) * 1.25f;
+            if (meshes[0].Name.ToString().Contains("SM_Bld_Architrave"))
+            {
+
+            }
+            var aabb = meshes[0].GetAabb();
+            initCam(aabb);
         }
         else
         {
