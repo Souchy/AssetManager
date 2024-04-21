@@ -17,13 +17,13 @@ internal static class Loaders
     public static PackedScene ItemFolderScene { get; set; }
     static Loaders()
     {
-        ItemFolderScene = GD.Load<PackedScene>("res://items/item_folder.tscn");
+        ItemFolderScene ??= GD.Load<PackedScene>("res://ui/items/item_folder.tscn");
     }
 
     public static async void loadThreaded(string[] files)
     {
         // EVENT: clear flow + Pearls
-        int threadSize = 230;
+        int threadSize = 10;
         int threadCount = 3; //(files.Length / threadSize) + 1;
         GodotThread[] threads = new GodotThread[threadCount];
         for (int t = 0; t < threads.Length; t++)

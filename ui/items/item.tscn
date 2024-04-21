@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bd283slamk6ae"]
 
-[ext_resource type="Texture2D" uid="uid://driesagh2j5dj" path="res://icon.svg" id="1_a823m"]
-[ext_resource type="Script" path="res://items/item.cs" id="1_i63lg"]
+[ext_resource type="Script" path="res://ui/items/item.cs" id="1_vriou"]
+[ext_resource type="Texture2D" uid="uid://driesagh2j5dj" path="res://icon.svg" id="2_i1xpu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qhbh"]
 
@@ -16,7 +16,7 @@ custom_minimum_size = Vector2(140, 120)
 offset_right = 100.0
 offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8qhbh")
-script = ExtResource("1_i63lg")
+script = ExtResource("1_vriou")
 
 [node name="Icon" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -24,7 +24,7 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("1_a823m")
+texture = ExtResource("2_i1xpu")
 expand_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -41,3 +41,4 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Name"
 label_settings = SubResource("LabelSettings_66rmw")
+text_overrun_behavior = 3

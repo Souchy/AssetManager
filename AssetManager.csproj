@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="GodotSharpExtras" Version="0.4.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
+    <PackageReference Include="SimpleInjector" Version="5.4.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\godot\VampireKiller\projects\Util\Util.csproj" />

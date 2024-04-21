@@ -3,11 +3,11 @@
 [ext_resource type="StyleBox" uid="uid://by141ycketuki" path="res://style/background_dark.tres" id="1_0rh8t"]
 [ext_resource type="Script" path="res://ui/UiFlowView.cs" id="1_6quc3"]
 [ext_resource type="Theme" uid="uid://gnsm0odr5gys" path="res://style/theme.tres" id="1_g7d5n"]
-[ext_resource type="PackedScene" path="res://items/item.tscn" id="2_gu7gj"]
-[ext_resource type="PackedScene" uid="uid://jym0ih4kflri" path="res://items/item_3d.tscn" id="3_fiea4"]
-[ext_resource type="PackedScene" uid="uid://b742bwem0u4b8" path="res://items/item_folder.tscn" id="4_bc4m3"]
-[ext_resource type="PackedScene" uid="uid://byeu5m15qh7ga" path="res://items/item_sound.tscn" id="5_ueyqn"]
-[ext_resource type="PackedScene" uid="uid://c7hskd88fa6qo" path="res://items/item_texture.tscn" id="6_r16tt"]
+[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://ui/items/item.tscn" id="2_gu7gj"]
+[ext_resource type="PackedScene" uid="uid://jym0ih4kflri" path="res://ui/items/item_3d.tscn" id="3_fiea4"]
+[ext_resource type="PackedScene" uid="uid://b742bwem0u4b8" path="res://ui/items/item_folder.tscn" id="4_bc4m3"]
+[ext_resource type="PackedScene" uid="uid://byeu5m15qh7ga" path="res://ui/items/item_sound.tscn" id="5_ueyqn"]
+[ext_resource type="PackedScene" uid="uid://c7hskd88fa6qo" path="res://ui/items/item_texture.tscn" id="6_r16tt"]
 
 [node name="UiFlowView" type="VBoxContainer"]
 offset_right = 1152.0

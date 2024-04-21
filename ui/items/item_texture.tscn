@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7hskd88fa6qo"]
 
-[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://items/item.tscn" id="1_fuusb"]
+[ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://ui/items/item.tscn" id="1_fuusb"]
 [ext_resource type="Texture2D" uid="uid://driesagh2j5dj" path="res://icon.svg" id="2_h0ocv"]
 
 [node name="ItemTexture" instance=ExtResource("1_fuusb")]

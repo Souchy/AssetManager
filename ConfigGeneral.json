@@ -1,0 +1,10 @@
+{
+  "$type": "AssetManager.ConfigGeneral, AssetManager",
+  "selectName": "FBX",
+  "SelectedPaths": {
+    "$type": "System.String[], System.Private.CoreLib",
+    "$values": [
+      null
+    ]
+  }
+}

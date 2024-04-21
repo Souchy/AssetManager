@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using AssetManager.autoload;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Util.communication.events;
 
-namespace AssetManager;
+namespace AssetManager.util;
 
 internal static class Util
 {
@@ -17,13 +18,13 @@ internal static class Util
         bool force = false;
         //SelectedPath = CurrentDirectory + selectName;
         //var selectedDir = new DirectoryInfo(SelectedPath);
-        var SelectedPath = Explorer.SelectedPath;
+        var SelectedPath = folder;
         var selectedDir = new DirectoryInfo(SelectedPath);
-        var newPath = Explorer.GeneratedPath.Replace("*", selectedDir.Name);
+        var newPath = ConfigGeneral.GeneratedPath.Replace("*", selectedDir.Name);
 
         GD.Print("ON GLTF");
 
-        var fbxDir = Explorer.SelectedPath;
+        var fbxDir = folder;
         var gltfDir = "";
 
         var fbx_files = Directory.GetFiles(SelectedPath, "*.fbx", SearchOption.AllDirectories);
@@ -35,13 +36,13 @@ internal static class Util
             if (File.Exists(output) && !force)
             {
                 //LblStatusValue.Text = (i + 1) + " / " + fbx_files.Length;
-                EventBus.centralBus.publish(UiStatusBar.EventStatusValue, (i + 1) + " / " + fbx_files.Length);
+                EventBus.centralBus.publish(UiStatusBar.EventStatusValue, i + 1 + " / " + fbx_files.Length);
                 continue;
             }
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.CreateNoWindow = true;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
-            psi.FileName = Explorer.fbx2gltf;
+            psi.FileName = ConfigGeneral.fbx2gltf;
             psi.ArgumentList.Add("-b");
             psi.ArgumentList.Add("-i");
             psi.ArgumentList.Add(input);
@@ -51,10 +52,10 @@ internal static class Util
             //process.WaitForExit();
 
             //LblStatusValue.Text = (i + 1) + " / " + fbx_files.Length;
-            EventBus.centralBus.publish(UiStatusBar.EventStatusValue, (i + 1) + " / " + fbx_files.Length);
+            EventBus.centralBus.publish(UiStatusBar.EventStatusValue, i + 1 + " / " + fbx_files.Length);
             //string stdout = process.StandardOutput.ReadToEnd(); 
             //Process.Start(fbx2gltf, $"-b -i {input} -o {output}");
         }
-    }   
+    }
 
 }

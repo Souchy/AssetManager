@@ -6,6 +6,8 @@ using System.Linq;
 using AssetManager;
 using Util.communication.events;
 using AssetManager.loaders;
+using AssetManager.autoload;
+using AssetManager.util;
 
 public partial class UiFlowView : VBoxContainer
 {
@@ -13,24 +15,32 @@ public partial class UiFlowView : VBoxContainer
 
     public static UiFlowView Instance;
 
-    [NodePath]
-    public HFlowContainer FlowItems { get; set; }
-
     //public PackedScene ItemFolderScene { get; set; }
     public PackedScene ItemTextureScene { get; set; }
     public PackedScene Item3DScene { get; set; }
 
+    #region Nodes
+    [NodePath]
+    public HFlowContainer FlowItems { get; set; }
+    #endregion
+
+    #region Inject
+    [Inject]
+    public ConfigGeneral config {  get; set; }
+    #endregion
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        this.OnReady();
-        EventBus.centralBus.subscribe(this);
         Instance = this;
+        this.OnReady();
+        this.Inject();
+        EventBus.centralBus.subscribe(this);
 
         FlowItems.RemoveAndQueueFreeChildren();
-        //ItemFolderScene = GD.Load<PackedScene>("res://items/item_folder.tscn");
-        ItemTextureScene = GD.Load<PackedScene>("res://items/item_texture.tscn");
-        Item3DScene = GD.Load<PackedScene>("res://items/item_3d.tscn");
+        //ItemFolderScene = GD.Load<PackedScene>("res://ui/items/item_folder.tscn");
+        ItemTextureScene = GD.Load<PackedScene>("res://ui/items/item_texture.tscn");
+        Item3DScene = GD.Load<PackedScene>("res://ui/items/item_3d.tscn");
     }
 
     public void clear()
@@ -47,7 +57,7 @@ public partial class UiFlowView : VBoxContainer
         //foreach (var n in nodes)
         //    makeItem(n);
         var items = nodes.Select(n => makeItem(n));
-        Pearls.ItemsPerDirectory[Explorer.CurrentDirectory].AddRange(items);
+        Pearls.ItemsPerDirectory[config.CurrentDirectory].AddRange(items);
     }
 
     public void refill(Array<item> items)

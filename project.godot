@@ -15,6 +15,11 @@ run/main_scene="res://ui/ui_main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DependencyInjectionSystem="*res://autoload/DependencyInjectionSystem.cs"
+Main="*res://autoload/Main.cs"
+
 [display]
 
 window/vsync/vsync_mode=0

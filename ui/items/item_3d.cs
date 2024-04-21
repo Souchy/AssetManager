@@ -62,14 +62,22 @@ public partial class item_3d : item
         {
             mesh.LodBias = 128;
         }
+        if(meshes.Count > 0)
+        {
         var aabb = meshes[0].GetAabb();
-        Camera3D.Size = aabb.Size.Y * 1.25f;
+        Camera3D.Size = Math.Max(aabb.Size.X, aabb.Size.Y) * 1.25f;
+        }
+        else
+        {
+            GD.Print("this guy has 0");
+        }
     }
 
     public void SetMaterial(Material material)
     {
+        if (material == null)
+            return;
         var meshes = Model.GetChildrenOfType<MeshInstance3D>();
-
         foreach (var mesh in meshes)
         {
             mesh.MaterialOverride = material;
