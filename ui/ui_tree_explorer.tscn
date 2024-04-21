@@ -22,12 +22,39 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Header/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Explorer"
+text = "Database Explorer"
 
 [node name="BtnHide" type="Button" parent="Header/HBoxContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "-"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="BtnCreatePack" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "+Pack"
+
+[node name="BtnSetModels" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "+Models"
+
+[node name="BtnSetMaterials" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "+Materials"
+
+[node name="BtnGenerateMaterialsFromTextures" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "+MaterialsFromTextures"
+
+[node name="BtnConvertFbxToGltf" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "ConvertFbxToGltf"
+
+[node name="BtnCreatePackFromSyntySource" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "+PackFromSyntySource"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2

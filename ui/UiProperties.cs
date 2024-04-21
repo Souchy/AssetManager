@@ -12,6 +12,9 @@ public partial class UiProperties : VBoxContainer
     {
         this.OnReady();
         GridProperties.RemoveAndQueueFreeChildren();
+
+        //var az = new EditorInspector();
+        //this.AddChild(az);
     }
 
 

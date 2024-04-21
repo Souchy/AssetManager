@@ -1,7 +1,13 @@
+using AssetManager;
+using AssetManager.autoload;
+using AssetManager.db;
+using AssetManager.loaders;
 using Godot;
 using Godot.Sharp.Extras;
 using System;
+using System.IO;
 using Util.communication.events;
+using Util.json;
 
 public partial class UiTreeExplorer : VBoxContainer
 {
@@ -17,5 +23,31 @@ public partial class UiTreeExplorer : VBoxContainer
         TreeItems.RemoveAndQueueFreeChildren();
     }
 
+    public void _on_btn_create_pack_from_synty_source_pressed()
+    {
+        var dialog = new FileDialog
+        {
+            CurrentDir = Main.ConfigGeneral.CurrentDirectory,
+            Access = FileDialog.AccessEnum.Filesystem,
+            FileMode = FileDialog.FileModeEnum.OpenDir,
+            UseNativeDialog = true
+        };
+        dialog.DirSelected += createPack;
+        this.AddChild(dialog);
+        dialog.PopupCentered();
+    }
+
+    private void createPack(string path)
+    {
+        SyntyPack pack = new SyntyPack();
+
+        var matdir = new DirectoryInfo(path + "/Textures/Alts/");
+        if (matdir.Exists)
+        {
+            var texs = matdir.GetFiles();
+            if (texs.Length > 0)
+                Pearls.Instance.DefaultMaterial = MaterialLoader.loadMaterial(matdir.GetFiles()[0]);
+        }
+    }
 
 }

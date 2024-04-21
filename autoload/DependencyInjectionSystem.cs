@@ -10,10 +10,12 @@ namespace AssetManager.autoload;
 
 public partial class DependencyInjectionSystem : Node, IDependencyInjectionSystem
 {
+    public static DependencyInjectionSystem instance;
     private Container container;
     public override void _EnterTree()
     {
         base._EnterTree();
+        instance = this;
         container = new Container();
         registerServices();
     }
@@ -29,12 +31,15 @@ public partial class DependencyInjectionSystem : Node, IDependencyInjectionSyste
         container.Register<Pearls>(Lifestyle.Singleton);
 
         var ex = container.GetInstance<Explorer>();
-
     }
+
 
 }
 
 public static class Inject
 {
-
+    public static T Get<T>()
+    {
+        return (T) DependencyInjectionSystem.instance.Resolve(typeof(T));
+    }
 }
