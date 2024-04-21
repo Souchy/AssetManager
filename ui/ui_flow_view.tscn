@@ -20,8 +20,48 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Flow"
+
+[node name="PathNavigatorContainer" type="HBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "G:/"
+
+[node name="Button2" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "Assets/"
+
+[node name="Button3" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "pack/"
+
+[node name="Button4" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "HumbleBundle/"
+
+[node name="Button5" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "Synty/"
+
+[node name="Button6" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "BUNDLE_1"
+
+[node name="Button7" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "Polygon_Heist_SourceFiles"
+
+[node name="Button8" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "_SourceFiles"
+
+[node name="Button9" type="Button" parent="HBoxContainer/PathNavigatorContainer"]
+layout_mode = 2
+text = "Textures"
 
 [node name="BtnReload" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true

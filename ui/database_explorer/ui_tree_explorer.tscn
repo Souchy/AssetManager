@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://by141ycketuki" path="res://style/background_dark.tres" id="1_35epx"]
 [ext_resource type="Theme" uid="uid://gnsm0odr5gys" path="res://style/theme.tres" id="1_d3m71"]
-[ext_resource type="Script" path="res://ui/UiTreeExplorer.cs" id="1_ks5e6"]
+[ext_resource type="Script" path="res://ui/database_explorer/UiTreeExplorer.cs" id="1_ks5e6"]
 
 [node name="UiTreeExplorer" type="VBoxContainer"]
 anchors_preset = 15
@@ -29,7 +29,7 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "-"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HFlowContainer" parent="."]
 layout_mode = 2
 
 [node name="BtnCreatePack" type="Button" parent="HBoxContainer"]
@@ -64,3 +64,5 @@ theme_override_styles/panel = ExtResource("1_35epx")
 [node name="TreeItems" type="Tree" parent="ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/BtnCreatePackFromSyntySource" to="." method="_on_btn_create_pack_from_synty_source_pressed"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqr7h54cbbtdg"]
 
 [ext_resource type="StyleBox" uid="uid://by141ycketuki" path="res://style/background_dark.tres" id="1_e0kv6"]
-[ext_resource type="Script" path="res://ui/UiProperties.cs" id="1_eisv6"]
+[ext_resource type="Script" path="res://ui/properties_explorer/UiProperties.cs" id="1_eisv6"]
 
 [node name="UiProperties" type="VBoxContainer"]
 anchors_preset = 15

@@ -20,13 +20,13 @@ public partial class UiFlowView : VBoxContainer
     public PackedScene Item3DScene { get; set; }
 
     #region Nodes
-    [NodePath]
-    public HFlowContainer FlowItems { get; set; }
+    [NodePath] public HFlowContainer FlowItems { get; set; }
+    [NodePath] public HBoxContainer PathNavigatorContainer { get; set; }
     #endregion
 
     #region Inject
-    [Inject]
-    public ConfigGeneral config {  get; set; }
+    [Inject] 
+    public ConfigGeneral config { get; set; }
     #endregion
 
     // Called when the node enters the scene tree for the first time.

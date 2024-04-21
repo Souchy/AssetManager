@@ -4,6 +4,8 @@ using System;
 
 public partial class UiProperties : VBoxContainer
 {
+    public static UiProperties Instance {  get; private set; }
+
     [NodePath]
     public GridContainer GridProperties { get; set; }
 
@@ -11,11 +13,16 @@ public partial class UiProperties : VBoxContainer
     public override void _Ready()
     {
         this.OnReady();
+        Instance = this;
         GridProperties.RemoveAndQueueFreeChildren();
 
         //var az = new EditorInspector();
         //this.AddChild(az);
     }
 
+    public void setTarget(object o)
+    {
+
+    }
 
 }

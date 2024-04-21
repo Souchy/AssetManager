@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://gnsm0odr5gys" path="res://style/theme.tres" id="1_8kepq"]
 [ext_resource type="Script" path="res://ui/UiMain.cs" id="2_v50e7"]
 [ext_resource type="PackedScene" uid="uid://b1fgldf3scauq" path="res://ui/ui_menu_bar.tscn" id="3_ap865"]
-[ext_resource type="PackedScene" uid="uid://1wfx8hra0fqi" path="res://ui/ui_tree_explorer.tscn" id="4_uy213"]
+[ext_resource type="PackedScene" uid="uid://1wfx8hra0fqi" path="res://ui/database_explorer/ui_tree_explorer.tscn" id="4_uy213"]
 [ext_resource type="PackedScene" uid="uid://c6pp7q4fnuv1u" path="res://ui/ui_flow_view.tscn" id="5_3vurj"]
-[ext_resource type="PackedScene" uid="uid://bqr7h54cbbtdg" path="res://ui/ui_properties.tscn" id="6_7sfyb"]
+[ext_resource type="PackedScene" uid="uid://bqr7h54cbbtdg" path="res://ui/properties_explorer/ui_properties.tscn" id="6_7sfyb"]
 [ext_resource type="PackedScene" uid="uid://5a855epusuu6" path="res://ui/ui_status_bar.tscn" id="7_epvvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wg843"]
@@ -57,6 +57,7 @@ split_offset = 330
 
 [node name="Scene" type="PanelContainer" parent="MarginContainer/VBoxContainer/Full/Left/Middle"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o16f5")
 

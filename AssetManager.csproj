@@ -13,4 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\godot\VampireKiller\projects\Util\Util.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ui\database_explorer\" />
+    <Folder Include="ui\properties_explorer\" />
+  </ItemGroup>
 </Project>
