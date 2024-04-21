@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="AssetManager"
-run/main_scene="res://main.tscn"
+run/main_scene="res://ui/ui_main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [dotnet]
 

@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6pp7q4fnuv1u"]
+
+[ext_resource type="StyleBox" uid="uid://by141ycketuki" path="res://style/background_dark.tres" id="1_0rh8t"]
+[ext_resource type="Script" path="res://ui/UiFlowView.cs" id="1_6quc3"]
+[ext_resource type="Theme" uid="uid://gnsm0odr5gys" path="res://style/theme.tres" id="1_g7d5n"]
+[ext_resource type="PackedScene" path="res://items/item.tscn" id="2_gu7gj"]
+[ext_resource type="PackedScene" uid="uid://jym0ih4kflri" path="res://items/item_3d.tscn" id="3_fiea4"]
+[ext_resource type="PackedScene" uid="uid://b742bwem0u4b8" path="res://items/item_folder.tscn" id="4_bc4m3"]
+[ext_resource type="PackedScene" uid="uid://byeu5m15qh7ga" path="res://items/item_sound.tscn" id="5_ueyqn"]
+[ext_resource type="PackedScene" uid="uid://c7hskd88fa6qo" path="res://items/item_texture.tscn" id="6_r16tt"]
+
+[node name="UiFlowView" type="VBoxContainer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme = ExtResource("1_g7d5n")
+script = ExtResource("1_6quc3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Flow"
+
+[node name="BtnHideFlow" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "-"
+
+[node name="GridExplorer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GridExplorer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_0rh8t")
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="GridExplorer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="FlowItems" type="HFlowContainer" parent="GridExplorer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+
+[node name="Item" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("2_gu7gj")]
+layout_mode = 2
+
+[node name="Item3d" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("3_fiea4")]
+custom_minimum_size = Vector2(84, 60)
+layout_mode = 2
+script = null
+
+[node name="ItemFolder" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("4_bc4m3")]
+custom_minimum_size = Vector2(84, 60)
+layout_mode = 2
+script = null
+
+[node name="ItemSound" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("5_ueyqn")]
+custom_minimum_size = Vector2(84, 60)
+layout_mode = 2
+script = null
+
+[node name="ItemTexture" parent="GridExplorer/ScrollContainer/MarginContainer/FlowItems" instance=ExtResource("6_r16tt")]
+custom_minimum_size = Vector2(84, 60)
+layout_mode = 2
+script = null

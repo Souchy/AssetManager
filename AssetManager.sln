@@ -1,12 +1,20 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManager", "AssetManager.csproj", "{323C9FEF-CB52-4F59-B121-C01F90559C8A}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManager", "AssetManager.csproj", "{323C9FEF-CB52-4F59-B121-C01F90559C8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util", "..\..\..\godot\VampireKiller\projects\Util\Util.csproj", "{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{888E5C3A-5169-462C-96D0-2143A82D3F28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	Debug|Any CPU = Debug|Any CPU
-	ExportDebug|Any CPU = ExportDebug|Any CPU
-	ExportRelease|Any CPU = ExportRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{323C9FEF-CB52-4F59-B121-C01F90559C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -15,5 +23,24 @@ Global
 		{323C9FEF-CB52-4F59-B121-C01F90559C8A}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{323C9FEF-CB52-4F59-B121-C01F90559C8A}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{323C9FEF-CB52-4F59-B121-C01F90559C8A}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{323C9FEF-CB52-4F59-B121-C01F90559C8A}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{323C9FEF-CB52-4F59-B121-C01F90559C8A}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8AB4E3A8-5C27-4B43-919E-9DA884DABD0E} = {888E5C3A-5169-462C-96D0-2143A82D3F28}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCA47024-1A13-4C74-BA0E-14DF91878678}
 	EndGlobalSection
 EndGlobal

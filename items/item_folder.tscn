@@ -1,5 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b742bwem0u4b8"]
+[gd_scene load_steps=3 format=3 uid="uid://b742bwem0u4b8"]
 
 [ext_resource type="PackedScene" uid="uid://bd283slamk6ae" path="res://items/item.tscn" id="1_7x2q4"]
+[ext_resource type="Script" path="res://items/ItemFolder.cs" id="2_g166b"]
 
 [node name="ItemFolder" instance=ExtResource("1_7x2q4")]
+script = ExtResource("2_g166b")
