@@ -18,13 +18,13 @@ public partial class UiMain : PanelContainer
     [NodePath]
     public UiTreeExplorer UiTreeExplorer { get; set; }
     [NodePath]
-    public UiFlowView UiFlowView { get; set; }
-    [NodePath]
     public UiStatusBar UiStatusBar { get; set; }
     [NodePath]
     public UiMenuBar UiMenuBar {  get; set; }
     [NodePath]
     public UiProperties UiProperties { get; set; }
+    [NodePath]
+    public UiFlowView UiFlowView { get; set; }
 
     [NodePath]
     public PanelContainer Scene { get; set; }
@@ -37,7 +37,5 @@ public partial class UiMain : PanelContainer
         this.OnReady();
         EventBus.centralBus.subscribe(this);
     }
-
-
 
 }
