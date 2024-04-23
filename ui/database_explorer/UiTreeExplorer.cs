@@ -39,8 +39,9 @@ public partial class UiTreeExplorer : VBoxContainer
             var mat = MaterialLoader.CreateMaterial(item.TextureRect.Texture, emission);
             collection.Materials.Add(mat);
             //Pearls.Instance.Assets.Add("material_path.tres", mat); // can only add mat if we save it to a .res file before
+            ResourceSaver.Save(collection, $"{item.TextureRect.Name}.mat");
         }
-        //collection.save();
+        ResourceSaver.Save(collection, $"{collection.GetHashCode()}.matcol");
     }
 
     public void _on_btn_create_pack_from_synty_source_pressed()
