@@ -12,7 +12,7 @@ namespace AssetManager.db;
 internal partial class SyntyPack : Resource
 {
     public Array<Node3D> Meshes { get; set; } = new();
-    //public Array<Material> Materials { get; set; } = new();
+    // List of material collections
     public Array<MaterialCollection> Materials { get; set; } = new();
     public Array<Texture2D> Decals { get; set; } = new();
 }
@@ -25,7 +25,14 @@ internal class Pack
     public string[] Textures;
 }
 
+/// <summary>
+/// Ex: can apply a random material from this collection. They're all alternatives that can apply to the same models
+/// Ex créé une collection from [texture_01_A, texture_01_B, ...]
+/// </summary>
 internal partial class MaterialCollection : Resource
 {
-    public Array<Material> Alternatives { get; set; } = new();
+    /// <summary>
+    /// Also known as Alternatives
+    /// </summary>
+    public Array<Material> Materials { get; set; } = new();
 }

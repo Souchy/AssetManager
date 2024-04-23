@@ -8,39 +8,37 @@ using Util.communication.events;
 
 public partial class item_3d : item
 {
-    private bool hovering { get; set; }
+    #region Properties
+    #endregion
 
+    #region Nodes
     [NodePath]
     public Node3D Model { get; set; }
     [NodePath]
     public SubViewport SubViewport { get; set; }
     [NodePath]
     public Camera3D Camera3D { get; set; }
+    #endregion
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        this.OnReady();
-        EventBus.centralBus.subscribe(this);
-        //this.GetParent().Connect("visible", Callable.From(_on_mouse_exited));
+        base._Ready();
         _on_mouse_exited();
     }
 
+    #region Signal Handlers
     public override void _EnterTree()
     {
         _on_mouse_exited();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        if (hovering)
+        base._Process(delta);
+        if (IsHovered)
         {
-            //Model.Rotate(Vector3.Up, (float) (0.5 * delta));
             Model.RotateY((float) (3 * delta));
-            //Model.GlobalRotate(Vector3.Up, (float)(0.5 * delta));
-            //Model.RotationDegrees = new Vector3(0, 30, 0);
-            //GD.Print("rotate");
         }
     }
 
@@ -48,6 +46,24 @@ public partial class item_3d : item
     {
         _on_mouse_exited();
     }
+
+    public override void _on_mouse_entered()
+    {
+        base._on_mouse_entered();
+        SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Once;
+        SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.WhenVisible;
+    }
+
+    public override void _on_mouse_exited()
+    {
+        base._on_mouse_exited();
+        if (Model == null)
+            return;
+        Model.Rotation = new Vector3();
+        this.SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Once;
+        this.SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
+    }
+    #endregion
 
     private static readonly float sin = (float) Math.Sin(30f * Math.PI / 180f);
     private static readonly float cos = (float) Math.Cos(30f * Math.PI / 180f);
@@ -102,6 +118,7 @@ public partial class item_3d : item
         }
         else
         {
+            // SM_Env_Grass_Round_03_glb, SM_Prop_Exorcist_Case_01_glb
             GD.Print("this guy has 0");
         }
     }
@@ -117,21 +134,5 @@ public partial class item_3d : item
         }
     }
 
-    public void _on_mouse_entered()
-    {
-        hovering = true;
-        SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Once;
-        SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.WhenVisible;
-    }
-
-    public void _on_mouse_exited()
-    {
-        if (Model == null)
-            return;
-        hovering = false;
-        Model.Rotation = new Vector3();
-        this.SubViewport.RenderTargetClearMode = SubViewport.ClearMode.Once;
-        this.SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
-    }
 
 }

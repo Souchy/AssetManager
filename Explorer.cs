@@ -1,4 +1,5 @@
 ﻿using AssetManager.autoload;
+using AssetManager.caches;
 using AssetManager.loaders;
 using Godot.Collections;
 using System;
@@ -32,6 +33,7 @@ public class Explorer
         {
             config.CurrentDirectory = path;
             config.SelectedPath = path;
+            config.save();
             // Refresh le FlowView
             onOpenedDirectory();
         }
@@ -50,6 +52,7 @@ public class Explorer
 
     private void onOpenedDirectory()
     {
+        // Material stuff that will be removed in the future
         var matdir = new DirectoryInfo(config.CurrentDirectory + "/Textures/Alts/");
         if (matdir.Exists)
         {
@@ -57,21 +60,35 @@ public class Explorer
             if (texs.Length > 0)
                 Pearls.Instance.DefaultMaterial = MaterialLoader.loadMaterial(matdir.GetFiles()[0]);
         }
+
+        // Clear items
         var oldItems = Pearls.Instance.CurrentItems;
+        UiFlowView.Instance.clear();
+
+        // Update navigation bar
+        UiFlowView.Instance.SetNavigatorPath(config.CurrentDirectory);
+
+        // Folder up
+        ItemFolder folderUp = Pearls.Instance.ItemFolderScene.Instantiate<ItemFolder>();
+        UiFlowView.Instance.AddItem(folderUp);
+        folderUp.dir = new DirectoryInfo(config.CurrentDirectory).Parent;
+        folderUp.SetLabelName("..");
+
+        // Old items
         if (oldItems != null)
         {
-            UiFlowView.Instance.refill(oldItems);
+            UiFlowView.Instance.AddItems(oldItems);
             EventBus.centralBus.publish(Loaders.EventLoadCount, oldItems.Count, oldItems.Count);
             return;
         }
 
-        UiFlowView.Instance.clear();
+        // New items
         Pearls.Instance.CurrentItems = new();
 
         // load dirs
         var dirs = Directory.GetDirectories(config.SelectedPath, "");
         var dirItems = Loaders.loadDirs(dirs);
-        UiFlowView.Instance.fill(dirItems);
+        UiFlowView.Instance.MakeAndAddItems(dirItems);
         Pearls.Instance.CurrentItems.AddRange(dirItems);
 
         // load files

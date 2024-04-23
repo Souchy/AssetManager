@@ -36,6 +36,7 @@ public partial class UiMain : PanelContainer
     {
         this.OnReady();
         EventBus.centralBus.subscribe(this);
+        UiFlowView.Instance = UiFlowView;
     }
 
 }

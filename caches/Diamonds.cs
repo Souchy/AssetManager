@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetManager;
+namespace AssetManager.caches;
 
+/// <summary>
+/// Database cache
+/// </summary>
 internal class Diamonds
 {
 

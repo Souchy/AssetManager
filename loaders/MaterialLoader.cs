@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using AssetManager.caches;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,20 +12,29 @@ internal static class MaterialLoader
 {
     public static Material loadMaterial(FileInfo textureFile) //string texture)
     {
-        var path = textureFile.FullName;
-        // TODO load materials
-        var mat = new StandardMaterial3D();
-        var img = Image.LoadFromFile(path);
-        var tex = ImageTexture.CreateFromImage(img);
-        mat.AlbedoTexture = tex;
+        var albedoPath = textureFile.FullName;
+        var tex = Pearls.Instance.LoadTexture2D(albedoPath);
+        Texture2D emission = GetAssociatedEmissionTexture(albedoPath);
 
-        var emi = path[..^5] + "Emissive.png";
-        if (File.Exists(emi))
+        return CreateMaterial(tex, emission);
+    }
+
+    public static Texture2D GetAssociatedEmissionTexture(string albedoPath)
+    {
+        var path = albedoPath[..^5] + "Emissive.png";
+        if (File.Exists(path))
         {
-            var imgemi = Image.LoadFromFile(emi);
-            var texemi = ImageTexture.CreateFromImage(imgemi);
-            mat.EmissionTexture = texemi;
+            return Pearls.Instance.LoadTexture2D(path);
         }
+        return null;
+    }
+
+    public static Material CreateMaterial(Texture2D albedo, Texture2D emission)
+    {
+        var mat = new StandardMaterial3D();
+        mat.AlbedoTexture = albedo;
+        mat.EmissionTexture = emission;
+        Pearls.Instance.DefaultMaterial ??= mat;
         return mat;
     }
 

@@ -1,31 +1,60 @@
-[gd_scene load_steps=6 format=3 uid="uid://bd283slamk6ae"]
+[gd_scene load_steps=9 format=3 uid="uid://bd283slamk6ae"]
 
 [ext_resource type="Script" path="res://ui/items/item.cs" id="1_vriou"]
 [ext_resource type="Texture2D" uid="uid://driesagh2j5dj" path="res://icon.svg" id="2_i1xpu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qhbh"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysb7y"]
+bg_color = Color(0.121569, 0.290196, 0.6, 0.27451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsiwt"]
+bg_color = Color(0.121569, 0.290196, 0.6, 0.666667)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dovcd"]
+line_spacing = 0.0
+font_size = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xchjs"]
 bg_color = Color(0, 0, 0, 0.431373)
 
 [sub_resource type="LabelSettings" id="LabelSettings_66rmw"]
+line_spacing = 0.0
 font_size = 12
 
 [node name="Item" type="PanelContainer"]
-custom_minimum_size = Vector2(140, 120)
+custom_minimum_size = Vector2(150, 120)
 offset_right = 100.0
 offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8qhbh")
 script = ExtResource("1_vriou")
 
+[node name="PanelHover" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ysb7y")
+
+[node name="PanelSelected" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsiwt")
+
 [node name="Icon" type="TextureRect" parent="."]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("2_i1xpu")
 expand_mode = 2
+
+[node name="LblExtension" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "PNG"
+label_settings = SubResource("LabelSettings_dovcd")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -38,7 +67,13 @@ theme_override_constants/margin_left = 5
 
 [node name="LblName" type="Label" parent="PanelContainer/MarginContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-text = "Name"
+size_flags_horizontal = 3
+text = "Name is very long long long"
 label_settings = SubResource("LabelSettings_66rmw")
-text_overrun_behavior = 3
+autowrap_mode = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using AssetManager.caches;
+using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
@@ -14,17 +15,14 @@ internal static class Loaders
     public const string EventLoad = "loaders.load.thread";
     public const string EventLoadCount = "loaders.load.count";
 
-    public static PackedScene ItemFolderScene { get; set; }
-    static Loaders()
-    {
-        ItemFolderScene ??= GD.Load<PackedScene>("res://ui/items/item_folder.tscn");
-    }
-
     public static async void loadThreaded(string[] files)
     {
+        if (files.Length == 0)
+            return;
+
         // EVENT: clear flow + Pearls
-        int threadSize = 3;
-        int threadCount = 3; //(files.Length / threadSize) + 1;
+        int threadSize = 200;
+        int threadCount = (files.Length / threadSize) + 1;
         GodotThread[] threads = new GodotThread[threadCount];
         for (int t = 0; t < threads.Length; t++)
         {
@@ -40,14 +38,14 @@ internal static class Loaders
         int counter = 0;
         foreach (var thread in threads)
         {
-            var results = (Array<Node>) thread.WaitToFinish();
+            var results = (Array<GodotObject>) thread.WaitToFinish();
             counter += results.Count;
             //var items = results.Select(r => makeitem)
             //foreach (var n in nodes.Where(n => n != null))
             //    makeItem(n);
 
             // EVENT: add_flow + add_pearl + update_loaded_count
-            UiFlowView.Instance.fill(results);
+            UiFlowView.Instance.MakeAndAddItems(results);
             //EventBus.centralBus.publish(EventLoad, results);
             EventBus.centralBus.publish(EventLoadCount, 0, files.Length);
             //UiFlowView.fill(results);
@@ -55,9 +53,9 @@ internal static class Loaders
         }
     }
 
-    public static Array<Node> loadThings(string[] files)
+    public static Array<GodotObject> loadThings(string[] files)
     {
-        Array<Node> items = new();
+        Array<GodotObject> objects = new();
         for (int i = 0; i < files.Length; i++)
         {
             if (i >= files.Length)
@@ -65,15 +63,15 @@ internal static class Loaders
             var file = files[i];
 
             var ext = file[file.LastIndexOf(".")..].ToLower();
-            Node item = null;
+            GodotObject obj = null;
             if (isMesh(ext))
-                item = load3d(file);
+                obj = Pearls.Instance.LoadNode3D(file);
             if (isTexture(ext))
-                item = loadTexture(file);
-            if (item != null)
-                items.Add(item);
+                obj = Pearls.Instance.LoadTexture2D(file);
+            if (obj != null)
+                objects.Add(obj);
         }
-        return items;
+        return objects;
     }
 
     public static Array<item> loadDirs(string[] dirs)
@@ -89,32 +87,38 @@ internal static class Loaders
     }
     public static ItemFolder loadDir(string dir)
     {
-        var item = ItemFolderScene.Instantiate<ItemFolder>();
+        var item = Pearls.Instance.ItemFolderScene.Instantiate<ItemFolder>();
         item.dir = new DirectoryInfo(dir);
         return item;
     }
 
-    private static GltfDocument gltfDocument = new();
+    //private static GltfDocument gltfDocument = new();
     public static bool isMesh(string extension) => extension == ".glb" || extension == ".gltf";
-    public static Node load3d(string file)
-    {
-        GltfState state = new();
-        var err = gltfDocument.AppendFromFile(file, state);
-        if (err != Error.Ok)
-        {
-            Console.WriteLine("error load3d: " + file);
-            return null;
-        }
-        var node = gltfDocument.GenerateScene(state);
-        string name = file.Substring(file.LastIndexOf('\\'));
-        node.Name = name;
-        return node;
-    }
+    //public static Node LoadNode3D(string file)
+    //{
+    //    GltfState state = new();
+    //    var err = gltfDocument.AppendFromFile(file, state);
+    //    if (err != Error.Ok)
+    //    {
+    //        Console.WriteLine("error load3d: " + file);
+    //        return null;
+    //    }
+    //    // FIXME: issue with using the same gltfDocument accross threads? error was something like writing on used memory
+    //    var node = gltfDocument.GenerateScene(state);
+    //    string name = file.Substring(file.LastIndexOf('\\'));
+    //    node.Name = name;
+    //    return node;
+    //}
 
 
     public static bool isTexture(string extension) => extension == ".png";
-    public static Node loadTexture(string file)
-    {
-        return null;
-    }
+    //public static ImageTexture LoadTexture(string file)
+    //{
+    //    var img = Image.LoadFromFile(file);
+    //    var texture = ImageTexture.CreateFromImage(img);
+    //    string name = file.Substring(file.LastIndexOf('\\'));
+    //    texture.ResourceName = name;
+    //    texture.ResourcePath = file;
+    //    return texture;
+    //}
 }

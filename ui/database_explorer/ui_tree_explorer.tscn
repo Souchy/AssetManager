@@ -45,6 +45,7 @@ layout_mode = 2
 text = "+Materials"
 
 [node name="BtnGenerateMaterialsFromTextures" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "+MaterialsFromTextures"
 
