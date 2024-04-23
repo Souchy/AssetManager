@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssetManager.db;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace AssetManager.caches;
 /// </summary>
 internal class Diamonds
 {
+    public static List<SyntyPack> Packs { get; set; } = new();
 
 
 }

@@ -66,7 +66,7 @@ public partial class UiFlowView : VBoxContainer
     {
         PathNavigatorContainer.RemoveAndQueueFreeChildren();
         var folders = path.Split("\\").ToList();
-        int start = Math.Max(0, folders.Count - 5);
+        int start = Math.Max(0, folders.Count - 4);
         for(int i = start; i < folders.Count; i++) 
         {
             var btn = new Button();

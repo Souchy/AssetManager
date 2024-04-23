@@ -52,6 +52,15 @@ internal class Pearls
     }
 
     #region Getters
+    public T LoadInternal<T>(string internalPath) where T : GodotObject
+    {
+        if (Assets.TryGetValue(internalPath, out GodotObject value))
+        {
+            return value as T;
+        }
+        var t = GD.Load<T>(internalPath);
+        return t;
+    }
     public Texture2D LoadTexture2D(string path)
     {
         if (Assets.TryGetValue(path, out GodotObject value))

@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://1wfx8hra0fqi"]
+[gd_scene load_steps=3 format=3 uid="uid://1wfx8hra0fqi"]
 
-[ext_resource type="StyleBox" uid="uid://by141ycketuki" path="res://style/background_dark.tres" id="1_35epx"]
 [ext_resource type="Theme" uid="uid://gnsm0odr5gys" path="res://style/theme.tres" id="1_d3m71"]
 [ext_resource type="Script" path="res://ui/database_explorer/UiTreeExplorer.cs" id="1_ks5e6"]
 
@@ -32,6 +31,11 @@ text = "-"
 [node name="HBoxContainer" type="HFlowContainer" parent="."]
 layout_mode = 2
 
+[node name="BtnRefresh" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh"
+
 [node name="BtnCreatePack" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 text = "+Pack"
@@ -57,13 +61,11 @@ text = "ConvertFbxToGltf"
 layout_mode = 2
 text = "+PackFromSyntySource"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("1_35epx")
-
-[node name="TreeItems" type="Tree" parent="ScrollContainer"]
+[node name="TreeItems" type="Tree" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
 
 [connection signal="pressed" from="HBoxContainer/BtnCreatePackFromSyntySource" to="." method="_on_btn_create_pack_from_synty_source_pressed"]
