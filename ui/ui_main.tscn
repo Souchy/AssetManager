@@ -45,7 +45,7 @@ second = SubResource("Resource_kfk38")
 resource_name = "Split"
 script = ExtResource("6_lpgkm")
 direction = 0
-percent = 0.657431
+percent = 0.481994
 first = SubResource("Resource_1rw4v")
 second = SubResource("Resource_ybhl7")
 
@@ -89,15 +89,15 @@ script = ExtResource("4_oe8uo")
 tab_alignment = 0
 layout = SubResource("Resource_pp2k4")
 
+[node name="UiFlowView" parent="MarginContainer/VBoxContainer/DockableContainer" instance=ExtResource("5_3vurj")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="UiTreeExplorer" parent="MarginContainer/VBoxContainer/DockableContainer" instance=ExtResource("4_uy213")]
 unique_name_in_owner = true
 layout_mode = 2
 
 [node name="UiProperties" parent="MarginContainer/VBoxContainer/DockableContainer" instance=ExtResource("6_7sfyb")]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="UiFlowView" parent="MarginContainer/VBoxContainer/DockableContainer" instance=ExtResource("5_3vurj")]
 unique_name_in_owner = true
 layout_mode = 2
 
