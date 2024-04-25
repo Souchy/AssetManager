@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://gnsm0odr5gys"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://gnsm0odr5gys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q1dkv"]
 bg_color = Color(0.105882, 0.105882, 0.105882, 0.627451)
@@ -22,6 +22,8 @@ skew = Vector2(0.145, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pfwlr"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_86mrv"]
+
 [resource]
 EscMenuButton/base_type = &"Button"
 EscMenuButton/colors/font_color = Color(1, 1, 1, 1)
@@ -40,3 +42,4 @@ HeaderStat/colors/font_color = Color(0, 0, 0, 0.588235)
 LblProperty/base_type = &"Label"
 LblProperty/colors/font_color = Color(0.730469, 0.730469, 0.730469, 1)
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_pfwlr")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_86mrv")

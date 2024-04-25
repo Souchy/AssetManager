@@ -49,6 +49,18 @@ public partial class UiTreeExplorer : VBoxContainer
         this.TreeItems.SelectMode = Tree.SelectModeEnum.Single;
         this.TreeItems.ItemMouseSelected += TreeItems_ItemMouseSelected;
         this.TreeItems.ItemIconDoubleClicked += TreeItems_ItemIconDoubleClicked;
+        this.TreeItems.HideRoot = true;
+
+        // Root
+        var itemRoot = this.TreeItems.CreateItem();
+        //itemRoot.SetIcon(0, Pearls.Instance.LoadInternal<Texture2D>("res://Assets/icons/folder.png"));
+        //itemRoot.SetIconMaxWidth(0, 32);
+        //itemRoot.SetText(0, "Files");
+        //itemRoot.SetMetadata(1, "Files");
+        //itemRoot.SetMetadata(0, new Array<Variant>() {
+        //    "Files", "Files", new Variant()
+        //});
+        //itemRoot.SetCustomColor(0, white);
 
         // Files
         var itemFiles = this.TreeItems.CreateItem();

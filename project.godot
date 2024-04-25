@@ -27,3 +27,7 @@ window/vsync/vsync_mode=0
 [dotnet]
 
 project/assembly_name="AssetManager"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dockable_container/plugin.cfg")

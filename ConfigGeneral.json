@@ -1,12 +1,12 @@
 {
   "$type": "AssetManager.ConfigGeneral, AssetManager",
   "selectName": "FBX",
-  "CurrentDirectory": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Horror_Mansion_SourceFiles\\SourceFiles\\FBX__AS_GEN_GLTF",
-  "SelectedPath": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Horror_Mansion_SourceFiles\\SourceFiles\\FBX__AS_GEN_GLTF",
+  "CurrentDirectory": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1",
+  "SelectedPath": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1",
   "SelectedPaths": {
     "$type": "System.String[], System.Private.CoreLib",
     "$values": [
-      "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Horror_Mansion_SourceFiles\\SourceFiles\\FBX__AS_GEN_GLTF"
+      "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1"
     ]
   }
 }
