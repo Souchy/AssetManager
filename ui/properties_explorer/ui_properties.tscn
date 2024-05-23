@@ -40,52 +40,56 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="GridProperties" type="GridContainer" parent="ScrollContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GridProperties" type="GridContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 columns = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"LblProperty"
 text = "Some Prop"
 
-[node name="TextEdit" type="TextEdit" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Value"
 scroll_fit_content_height = true
 
-[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"LblProperty"
 text = "Some Prop"
 
-[node name="TextEdit2" type="TextEdit" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="TextEdit2" type="TextEdit" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Value"
 scroll_fit_content_height = true
 
-[node name="Label3" type="Label" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="Label3" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"LblProperty"
 text = "Some Prop"
 
-[node name="TextEdit3" type="TextEdit" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="TextEdit3" type="TextEdit" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Value"
 scroll_fit_content_height = true
 
-[node name="Label4" type="Label" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="Label4" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 layout_mode = 2
 tooltip_text = "Some very long prop"
 mouse_filter = 1
@@ -93,9 +97,24 @@ theme_type_variation = &"LblProperty"
 text = "Some very long prop"
 text_overrun_behavior = 3
 
-[node name="TextEdit4" type="TextEdit" parent="ScrollContainer/MarginContainer/GridProperties"]
+[node name="TextEdit4" type="TextEdit" parent="ScrollContainer/MarginContainer/VBoxContainer/GridProperties"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Value"
 scroll_fit_content_height = true
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="LblTags" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Tags"
+
+[node name="TagList" type="HFlowContainer" parent="ScrollContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

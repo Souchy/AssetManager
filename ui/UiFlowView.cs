@@ -50,6 +50,7 @@ public partial class UiFlowView : VBoxContainer
 
     #region Properties 
     public item LastItemSelected { get; set; }
+    public List<item> SelectedItems { get; set; }
     #endregion
 
     // Called when the node enters the scene tree for the first time.
@@ -117,6 +118,10 @@ public partial class UiFlowView : VBoxContainer
     #endregion
 
     #region Add items
+    public IEnumerable<T> GetItems<T>() where T : item
+    {
+        return FlowItems.GetChildren().Where(c => c is T).Cast<T>();
+    }
     public void AddItem(item item) => this.FlowItems.AddChild(item);
     public void AddItems(IEnumerable<item> items)
     {
@@ -180,7 +185,7 @@ public partial class UiFlowView : VBoxContainer
     public void _on_btn_reload_pressed()
     {
         Pearls.Instance.CurrentItems = null;
-        Explorer.Instance.select(Explorer.Instance.config.CurrentDirectory);
+        Explorer.Instance.select(Explorer.Instance.config.CurrentDirectory, true);
     }
     #endregion
 }

@@ -26,6 +26,13 @@ public partial class SyntyPack : Resource
     public Array<Texture2D> Decals { get; set; } = new();
 }
 
+public partial class ModelCollection : Resource
+{
+    public string NameOrId { get; set; }
+    public Array<Node3D> Meshes { get; set; } = new();
+    public Array<MaterialCollection> MaterialCollections { get; set; } = new();
+}
+
 /// <summary>
 /// Ex: can apply a random material from this collection. They're all alternatives that can apply to the same models
 /// Ex créé une collection from [texture_01_A, texture_01_B, ...]

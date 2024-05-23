@@ -14,5 +14,9 @@ internal class Diamonds
 {
     public static List<SyntyPack> Packs { get; set; } = new();
 
+    static Diamonds()
+    {
+
+    }
 
 }

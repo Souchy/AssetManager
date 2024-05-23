@@ -45,7 +45,7 @@ second = SubResource("Resource_kfk38")
 resource_name = "Split"
 script = ExtResource("6_lpgkm")
 direction = 0
-percent = 0.481994
+percent = 0.742188
 first = SubResource("Resource_1rw4v")
 second = SubResource("Resource_ybhl7")
 

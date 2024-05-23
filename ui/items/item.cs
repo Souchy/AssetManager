@@ -1,10 +1,15 @@
+using AssetManager.db;
 using Godot;
 using Godot.Sharp.Extras;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Util.communication.events;
 
 public partial class item : PanelContainer
 {
+    public static HashSet<item> SelectedItems {  get; set; } = new();
+
     #region Nodes
     [NodePath] public TextureRect Icon { get; set; }
     [NodePath] public Label LblName { get; set; }
@@ -67,7 +72,29 @@ public partial class item : PanelContainer
         if (PanelSelected != null)
         {
             PanelSelected.Visible = selected;
+            if (selected)
+            {
+
+                SelectedItems.Add(this);
+                EventBus.centralBus.publish("FlowSelected", this);
+            }
+            else
+            {
+                SelectedItems.Remove(this);
+            }
         }
+    }
+
+    public Asset getAsset()
+    {
+        var asset = AssetFolder.CurrentFolder.Assets.FirstOrDefault(a => a.Path == this.Path);
+        if (asset == null)
+        {
+            asset = new();
+            asset.Path = this.Path;
+            AssetFolder.CurrentFolder.Assets.Add(asset);
+        }
+        return asset;
     }
 
     #region Signal handlers

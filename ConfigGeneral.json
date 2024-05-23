@@ -1,12 +1,43 @@
 {
-  "$type": "AssetManager.ConfigGeneral, AssetManager",
-  "selectName": "FBX",
-  "CurrentDirectory": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1",
-  "SelectedPath": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1",
-  "SelectedPaths": {
-    "$type": "System.String[], System.Private.CoreLib",
-    "$values": [
-      "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1"
-    ]
-  }
+  "fbx2gltf": "G:/Downloads/FBX2glTF-windows-x86_64.exe",
+  "GeneratedPath": "*__AS_GEN_GLTF",
+  "CurrentDirectory": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Vikings_Source_Files_v2\\FBX__AS_GEN_GLTF",
+  "SelectedPaths": [
+    "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Vikings_Source_Files_v2\\FBX__AS_GEN_GLTF"
+  ],
+  "SelectedPath": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Vikings_Source_Files_v2\\FBX__AS_GEN_GLTF",
+  "Workspaces": [],
+  "CurrentWorkspace": {
+    "Name": "Default",
+    "Path": "G:\\Assets\\pack\\HumbleBundle\\Synty\\"
+  },
+  "Tags": [
+    {
+      "Name": "Wall"
+    },
+    {
+      "Name": "Floor"
+    },
+    {
+      "Name": "Door"
+    },
+    {
+      "Name": "Window"
+    },
+    {
+      "Name": "Decoration"
+    },
+    {
+      "Name": "OnTheWall"
+    },
+    {
+      "Name": "OnTheFloor"
+    },
+    {
+      "Name": "Collision"
+    },
+    {
+      "Name": "Light"
+    }
+  ]
 }

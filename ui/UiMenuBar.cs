@@ -1,5 +1,6 @@
 using AssetManager;
 using AssetManager.autoload;
+using AssetManager.caches;
 using AssetManager.util;
 using Godot;
 using Godot.Sharp.Extras;
@@ -24,6 +25,7 @@ public partial class UiMenuBar : MenuBar
     {
         var dialog = new FileDialog
         {
+            RootSubfolder = explorer.config.CurrentWorkspace.Path,
             CurrentDir = explorer.config.CurrentDirectory,
             Access = FileDialog.AccessEnum.Filesystem,
             FileMode = FileDialog.FileModeEnum.OpenDir,
@@ -37,11 +39,24 @@ public partial class UiMenuBar : MenuBar
     public void _on_btn_gltf_pressed()
     {
         EventBus.centralBus.publish(UiStatusBar.EventStatusHeader, "Converting fbx to gltf:");
-        AssetManager.util.Util.FbxToGltf(explorer.config.SelectedPath);
+        AssetManager.util.Util.FbxToGltf(explorer.config);
+    }
+
+    public void _on_btn_export_mesh_pressed()
+    {
+        EventBus.centralBus.publish(UiStatusBar.EventStatusHeader, "Exporting meshes:");
+        EventBus.centralBus.publish(UiStatusBar.EventStatusValue, "0/0");
+        AssetManager.util.Util.ExportMeshes();
     }
 
     public void _on_btn_show_flow_pressed()
     {
         EventBus.centralBus.publish(UiFlowView.EventVisible);
     }
+
+    public void _on_btn_settings_pressed()
+    {
+
+    }
+
 }

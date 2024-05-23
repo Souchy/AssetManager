@@ -25,8 +25,8 @@ public partial class UiTreeExplorer : VBoxContainer
         this.OnReady();
         EventBus.centralBus.subscribe(this);
         TreeItems.RemoveAndQueueFreeChildren();
-        BtnGenerateMaterialsFromTextures.Pressed += BtnGenerateMaterialsFromTextures_Pressed;
-        BtnRefresh.Pressed += Refresh;
+        //BtnGenerateMaterialsFromTextures.Pressed += BtnGenerateMaterialsFromTextures_Pressed;
+        //BtnRefresh.Pressed += Refresh;
 
         // Experiment
         {
@@ -38,11 +38,11 @@ public partial class UiTreeExplorer : VBoxContainer
             Diamonds.Packs.Add(pack);
         }
 
-        Refresh();
+        _on_btn_refresh_pressed();
     }
 
     private readonly Color white = Color.Color8(255, 255, 255, 255);
-    public void Refresh()
+    public void _on_btn_refresh_pressed()
     {
         this.TreeItems.Clear();
         this.TreeItems.Columns = 1;
@@ -177,7 +177,7 @@ public partial class UiTreeExplorer : VBoxContainer
 
     }
 
-    private void BtnGenerateMaterialsFromTextures_Pressed()
+    public void _on_btn_generate_materials_from_textures_pressed()
     {
         var items = UiFlowView.Instance.FlowItems.GetChildren().Cast<item>();
 

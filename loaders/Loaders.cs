@@ -61,10 +61,10 @@ internal static class Loaders
             if (i >= files.Length)
                 break;
             var file = files[i];
-
-            var ext = file[file.LastIndexOf(".")..].ToLower();
+            var dot = file.LastIndexOf(".");
+            var ext = dot == -1 ? "" : file[dot..].ToLower();
             GodotObject obj = null;
-            if (isMesh(ext))
+            if (isModel(ext))
                 obj = Pearls.Instance.LoadNode3D(file);
             if (isTexture(ext))
                 obj = Pearls.Instance.LoadTexture2D(file);
@@ -93,7 +93,7 @@ internal static class Loaders
     }
 
     //private static GltfDocument gltfDocument = new();
-    public static bool isMesh(string extension) => extension == ".glb" || extension == ".gltf";
+    public static bool isModel(string extension) => extension == ".glb" || extension == ".gltf";
     //public static Node LoadNode3D(string file)
     //{
     //    GltfState state = new();

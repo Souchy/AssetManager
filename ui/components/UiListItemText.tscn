@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://du8t86p8yuuk1"]
+
+[ext_resource type="PackedScene" uid="uid://dil4jrtarfx4g" path="res://ui/components/UiListItem.tscn" id="1_unvgb"]
+[ext_resource type="Script" path="res://ui/components/UiListItemText.cs" id="2_52v8i"]
+
+[node name="UiListItemText" instance=ExtResource("1_unvgb")]
+script = ExtResource("2_52v8i")
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/HBoxContainer/Control" index="0"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+wrap_mode = 1
