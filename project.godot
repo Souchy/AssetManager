@@ -12,8 +12,9 @@ config_version=5
 
 config/name="AssetManager"
 run/main_scene="res://ui/ui_main.tscn"
-config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+config/tags=PackedStringArray("souchy", "tool")
 
 [autoload]
 

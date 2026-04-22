@@ -76,7 +76,7 @@ internal class Pearls
         return texture;
     }
 
-    private readonly GltfDocument gltfDocument = new();
+    //private readonly GltfDocument gltfDocument = new();
     public Node3D LoadNode3D(string path)
     {
         if (Assets.TryGetValue(path, out GodotObject value))
@@ -84,6 +84,7 @@ internal class Pearls
             return value as Node3D;
         }
         GltfState state = new();
+        GltfDocument gltfDocument = new();
         var err = gltfDocument.AppendFromFile(path, state);
         if (err != Error.Ok)
         {
@@ -91,12 +92,19 @@ internal class Pearls
             return null;
         }
         // FIXME: issue with using the same gltfDocument accross threads? error was something like writing on used memory
-        var node = gltfDocument.GenerateScene(state);
-        string name = path.Substring(path.LastIndexOf('\\'));
-        node.Name = name;
-        node.SceneFilePath = path;
-        Assets[path] = node;
-        return node as Node3D;
+        try
+        {
+            //gltfDocument.GenerateBuffer(state);
+            Node node = gltfDocument.GenerateScene(state);
+            string name = path.Substring(path.LastIndexOf('\\'));
+            node.Name = name;
+            node.SceneFilePath = path;
+            Assets[path] = node;
+            return node as Node3D;
+        } catch(Exception e)
+        {
+            return null;
+        }
     }
     #endregion
 

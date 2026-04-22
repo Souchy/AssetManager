@@ -1,11 +1,12 @@
 {
   "fbx2gltf": "G:/Downloads/FBX2glTF-windows-x86_64.exe",
   "GeneratedPath": "*__AS_GEN_GLTF",
-  "CurrentDirectory": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Vikings_Source_Files_v2\\FBX__AS_GEN_GLTF",
+  "GeneratedPathMesh": "*__AS_GEN_MESH",
+  "CurrentDirectory": "R:\\pack\\HumbleBundle\\Synty\\BUNDLE_3\\POLYGON_Nature_Source_Files_v2\\Source Files",
   "SelectedPaths": [
-    "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Vikings_Source_Files_v2\\FBX__AS_GEN_GLTF"
+    "R:\\pack\\HumbleBundle\\Synty\\BUNDLE_3\\POLYGON_Nature_Source_Files_v2\\Source Files"
   ],
-  "SelectedPath": "G:\\Assets\\pack\\HumbleBundle\\Synty\\BUNDLE_1\\POLYGON_Vikings_Source_Files_v2\\FBX__AS_GEN_GLTF",
+  "SelectedPath": "R:\\pack\\HumbleBundle\\Synty\\BUNDLE_3\\POLYGON_Nature_Source_Files_v2\\Source Files",
   "Workspaces": [],
   "CurrentWorkspace": {
     "Name": "Default",

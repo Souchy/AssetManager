@@ -42,6 +42,11 @@ internal static class Util
                 EventBus.centralBus.publish(UiStatusBar.EventStatusValue, i + 1 + " / " + fbx_files.Length);
                 continue;
             }
+            FileInfo outputFile = new FileInfo(output);
+            if(!outputFile.Directory.Exists)
+            {
+                outputFile.Directory.Create();
+            }
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.CreateNoWindow = true;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
@@ -63,6 +68,23 @@ internal static class Util
 
     public static void ExportMeshes()
     {
+        var selectedDir = new DirectoryInfo(ConfigGeneral.Instance.CurrentDirectory);
+        //var newFolderName = selectedDir.Name.Replace(ConfigGeneral.Instance.GeneratedPath.Replace("*", ""), ConfigGeneral.Instance.GeneratedPathMesh.Replace("*", ""));
+        //var newDir = new DirectoryInfo(ConfigGeneral.Instance.CurrentDirectory.Replace(selectedDir.Name, newFolderName));
+        var a = ConfigGeneral.Instance.GeneratedPath.Replace("*", "");
+        var b = ConfigGeneral.Instance.GeneratedPathMesh.Replace("*", "");
+        DirectoryInfo newDir = null;
+        //if (ConfigGeneral.Instance.CurrentDirectory.EndsWith(a))
+        //{
+            newDir = new DirectoryInfo(ConfigGeneral.Instance.CurrentDirectory.Replace(a, b));
+        //} else
+        //{
+        //    newDir = new DirectoryInfo(ConfigGeneral.Instance.CurrentDirectory + b);
+        //}
+        if (!newDir.Exists)
+        {
+            newDir.Create();
+        }
         int meshCount = 0;
         int itemCount = 0;
         foreach (var i in Pearls.Instance.CurrentItems)
@@ -76,24 +98,26 @@ internal static class Util
                 var mesh = mi.Mesh;
                 var resname = mesh.ResourceName;
                 mesh.ResourceName = mi.Name;
-                string mipath = ConfigGeneral.Instance.CurrentDirectory + "/" + mi.Name + ".glb";
-                string meshpath = ConfigGeneral.Instance.CurrentDirectory + "/" + mi.Name + ".tres";
+                string mipath = newDir.FullName + "/" + mi.Name + ".glb";
+                string meshpath = newDir.FullName + "/" + mi.Name + ".mesh";
                 //Directory.CreateDirectory(ConfigGeneral.Instance.CurrentDirectory.Replace(ConfigGeneral.Instance.GeneratedPath, "meshes"));
                 //Directory.CreateDirectory(ConfigGeneral.Instance.CurrentDirectory += "/mesh");
+                //if(true)
+                //    return;
+
                 var arrayMesh = mesh as ArrayMesh;
                 if(arrayMesh != null)
                 {
                     var shadowmesh = arrayMesh.ShadowMesh;
-                    //string path = ConfigGeneral.Instance.CurrentDirectory + "/" + mi.Name + ".mesh";
-                    ResourceSaver.Save(arrayMesh, meshpath, ResourceSaver.SaverFlags.None);
+                    //ResourceSaver.Save(arrayMesh, meshpath, ResourceSaver.SaverFlags.None);
 
-                    //var gltf_document_save = new GltfDocument();
-                    //var gltf_state_save = new GltfState();
-                    //gltf_document_save.AppendFromScene(mi, gltf_state_save);
-                    ////# The file extension in the output `path` (`.gltf` or `.glb`) determines
-                    ////# whether the output uses text or binary format.
-                    ////# `GLTFDocument.generate_buffer()` is also available for saving to memory.
-                    //gltf_document_save.WriteToFilesystem(gltf_state_save, mipath);
+                    var gltf_document_save = new GltfDocument();
+                    var gltf_state_save = new GltfState();
+                    gltf_document_save.AppendFromScene(mi, gltf_state_save);
+                    //# The file extension in the output `path` (`.gltf` or `.glb`) determines
+                    //# whether the output uses text or binary format.
+                    //# `GLTFDocument.generate_buffer()` is also available for saving to memory.
+                    gltf_document_save.WriteToFilesystem(gltf_state_save, mipath);
                 }
                 //var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Write);
                 //file.StoreVar(mesh);

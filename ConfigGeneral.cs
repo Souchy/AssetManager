@@ -20,6 +20,7 @@ public class ConfigGeneral : Config
     #region Configuration
     public string fbx2gltf { get; set; } = "G:/Downloads/FBX2glTF-windows-x86_64.exe";
     public string GeneratedPath { get; set; } = "*__AS_GEN_GLTF";
+    public string GeneratedPathMesh { get; set; } = "*__AS_GEN_MESH";
     #endregion
 
     #region Paths
